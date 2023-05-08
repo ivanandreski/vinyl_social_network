@@ -1,3 +1,4 @@
+import 'package:chaleno/chaleno.dart';
 import 'package:flutter/material.dart';
 import 'package:vinyl_social_network/app_config.dart';
 import 'package:vinyl_social_network/models/album.dart';
@@ -40,6 +41,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   List<Album> albums = [];
   bool _checkConfiguration() => true;
+  String testImageUrl = "";
 
   @override
   void initState() {
@@ -49,8 +51,22 @@ class _MyHomePageState extends State<MyHomePage> {
         final pages = await AppConfig.of(context)!
             .discogsDatasource
             .fetchCollectionPages();
+
+        // Put this code in a service that will save albums to cache
+
+        final temp = AlbumCacheFactory.instance.fillAlbumCache(pages);
+        for (Album album in temp) {
+          final response = await Chaleno().load(album.discogsReleaseUrl);
+          album.imageUrl = response
+                  ?.querySelector(".image_3rzgk.bezel_2NSgk > picture > img")
+                  .src ??
+              "No Image Available";
+        }
+
+        // end
+
         setState(() {
-          albums = AlbumCacheFactory.instance.fillAlbumCache(pages);
+          albums = temp;
         });
       });
     }
@@ -68,9 +84,29 @@ class _MyHomePageState extends State<MyHomePage> {
             itemCount: albums.length,
             itemBuilder: (BuildContext context, int index) {
               return Container(
-                height: 50,
-                child: Center(child: Text(albums[index].title)),
-              );
+                  height: 200,
+                  child: Row(children: [
+                    Expanded(
+                      flex: 1,
+                      child: Container(
+                        width: MediaQuery.of(context).size.width * 0.25,
+                        decoration: BoxDecoration(color: Colors.greenAccent),
+                        child: Text(albums[index].title),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: Container(
+                        width: MediaQuery.of(context).size.width * 0.25,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: NetworkImage(albums[index].imageUrl),
+                            fit: BoxFit.fitHeight,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ]));
             }));
   }
 }

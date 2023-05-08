@@ -22,6 +22,7 @@ class DiscogsDatasource implements DiscogsDatasourceInterface {
         "per_page": "100",
         "page": page.toString()
       });
+
       final response = await http.get(url);
       if (response.statusCode == 200) {
         var jsonResponse =

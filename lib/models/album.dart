@@ -1,4 +1,11 @@
+import 'package:isar/isar.dart';
+
+part 'album.g.dart';
+
+@collection
 class Album {
+  Id id = Isar.autoIncrement;
+
   late final String discogsId;
   late final String discogsResourceUrl;
   late final String discogsReleaseUrl;

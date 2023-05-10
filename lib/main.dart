@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:vinyl_social_network/app_config.dart';
 import 'package:vinyl_social_network/frontend/views/home_view.dart';
+import 'package:vinyl_social_network/repository/album_local_repository.dart';
 import 'package:vinyl_social_network/repository/discogs_datasource.dart';
 import 'package:vinyl_social_network/service/discogs_data_service.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  runApp(const AppConfig(
+  runApp(AppConfig(
       discogsDatasource: DiscogsDatasource(),
       discogsDataService: DiscogsDataService(),
+      albumLocalRepository: AlbumLocalRepository(),
       child: MyApp()));
 }
 

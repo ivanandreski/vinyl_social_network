@@ -24,13 +24,21 @@ class _HomeViewState extends State<HomeView> {
     super.initState();
     if (_checkConfiguration()) {
       Future.delayed(Duration.zero, () async {
-        final pages = await AppConfig.of(context)!
-            .discogsDatasource
-            .fetchCollectionPages();
+        List<Album> parsedAlbums =
+            await AppConfig.of(context)!.albumLocalRepository.getAllAlbums();
+        if (parsedAlbums.isEmpty) {
+          final pages = await AppConfig.of(context)!
+              .discogsDatasource
+              .fetchCollectionPages();
 
-        final parsedAlbums = await AppConfig.of(context)!
-            .discogsDataService
-            .parseDiscogsPagesToAlbums(pages);
+          final parsedAlbums = await AppConfig.of(context)!
+              .discogsDataService
+              .parseDiscogsPagesToAlbums(pages);
+
+          await AppConfig.of(context)!
+              .albumLocalRepository
+              .saveAlbumsBulk(parsedAlbums);
+        }
 
         setState(() {
           albums = parsedAlbums;

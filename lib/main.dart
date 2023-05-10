@@ -1,15 +1,16 @@
-import 'package:chaleno/chaleno.dart';
 import 'package:flutter/material.dart';
 import 'package:vinyl_social_network/app_config.dart';
-import 'package:vinyl_social_network/models/album.dart';
+import 'package:vinyl_social_network/frontend/views/home_view.dart';
 import 'package:vinyl_social_network/repository/discogs_datasource.dart';
-import 'package:vinyl_social_network/utils/factory/album_cache_factory.dart';
+import 'package:vinyl_social_network/service/discogs_data_service.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
-  runApp(
-      const AppConfig(discogsDatasource: DiscogsDatasource(), child: MyApp()));
+  runApp(const AppConfig(
+      discogsDatasource: DiscogsDatasource(),
+      discogsDataService: DiscogsDataService(),
+      child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -19,94 +20,24 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  List<Album> albums = [];
-  bool _checkConfiguration() => true;
-  String testImageUrl = "";
-
-  @override
-  void initState() {
-    super.initState();
-    if (_checkConfiguration()) {
-      Future.delayed(Duration.zero, () async {
-        final pages = await AppConfig.of(context)!
-            .discogsDatasource
-            .fetchCollectionPages();
-
-        // Put this code in a service that will save albums to cache
-
-        final temp = AlbumCacheFactory.instance.fillAlbumCache(pages);
-        for (Album album in temp) {
-          final response = await Chaleno().load(album.discogsReleaseUrl);
-          album.imageUrl = response
-                  ?.querySelector(".image_3rzgk.bezel_2NSgk > picture > img")
-                  .src ??
-              "No Image Available";
-        }
-
-        // end
-
-        setState(() {
-          albums = temp;
-        });
-      });
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          title: Text(widget.title),
+        title: 'Vinyl Social Network',
+        theme: ThemeData(
+          brightness: Brightness.light,
+          useMaterial3: true,
         ),
-        body: ListView.builder(
-            padding: const EdgeInsets.all(8),
-            itemCount: albums.length,
-            itemBuilder: (BuildContext context, int index) {
-              return Container(
-                  height: 200,
-                  child: Row(children: [
-                    Expanded(
-                      flex: 1,
-                      child: Container(
-                        width: MediaQuery.of(context).size.width * 0.25,
-                        decoration: BoxDecoration(color: Colors.greenAccent),
-                        child: Text(albums[index].title),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: Container(
-                        width: MediaQuery.of(context).size.width * 0.25,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: NetworkImage(albums[index].imageUrl),
-                            fit: BoxFit.fitHeight,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ]));
-            }));
+        darkTheme: ThemeData(brightness: Brightness.dark),
+        themeMode: ThemeMode.light,
+        initialRoute: HomeView.route,
+        routes: {
+          HomeView.route: (ctx) =>
+              const HomeView(title: "Vinyl Social Network"),
+          // LoginScreen.routeName: (ctx) => const LoginScreen(),
+          // RegisterScreen.routeName: (ctx) => const RegisterScreen(),
+          // QrCodeLoginView.routeName: (ctx) => const QrCodeLoginView(),
+          // ProfileScreen.routeName: (ctx) => const ProfileScreen(),
+          // PcBuilderScreen.routeName: (ctx) => const PcBuilderScreen(),
+          // SelectProductScreen.routeName: (ctx) => const SelectProductScreen(),
+          // ProductDetailsScreen.routeName: (ctx) => const ProductDetailsScreen(),
+        });
   }
 }

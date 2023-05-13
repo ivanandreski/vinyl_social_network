@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:vinyl_social_network/domain/models/album.dart';
 import 'package:vinyl_social_network/frontend/components/collection_list_item.dart';
-import 'package:vinyl_social_network/models/album.dart';
 
 class CollectionListView extends StatelessWidget {
   final List<Album> albums;

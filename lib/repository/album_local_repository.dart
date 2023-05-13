@@ -1,6 +1,6 @@
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:vinyl_social_network/models/album.dart';
+import 'package:vinyl_social_network/domain/models/album.dart';
 import 'package:vinyl_social_network/repository/album_local_repository_interface.dart';
 
 // maybe we convert this back to being one service for all models

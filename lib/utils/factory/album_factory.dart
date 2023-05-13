@@ -1,4 +1,4 @@
-import "package:vinyl_social_network/models/album.dart";
+import "package:vinyl_social_network/domain/models/album.dart";
 
 class AlbumFactory {
   static final AlbumFactory _instance = AlbumFactory._privateConstructor();

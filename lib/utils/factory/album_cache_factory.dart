@@ -1,4 +1,4 @@
-import 'package:vinyl_social_network/models/album.dart';
+import 'package:vinyl_social_network/domain/models/album.dart';
 import 'package:vinyl_social_network/utils/factory/album_factory.dart';
 
 class AlbumCacheFactory {

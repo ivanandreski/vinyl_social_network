@@ -1,6 +1,6 @@
 import 'package:chaleno/chaleno.dart';
-import 'package:vinyl_social_network/models/album.dart';
-import 'package:vinyl_social_network/service/discogs_data_service_interface.dart';
+import 'package:vinyl_social_network/domain/models/album.dart';
+import 'package:vinyl_social_network/service/interface/discogs_data_service_interface.dart';
 import 'package:vinyl_social_network/utils/factory/album_factory.dart';
 
 class DiscogsDataService implements DiscogsDataServiceInterface {

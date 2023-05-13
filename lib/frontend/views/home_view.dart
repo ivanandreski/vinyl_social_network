@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vinyl_social_network/app_config.dart';
+import 'package:vinyl_social_network/domain/models/album.dart';
 import 'package:vinyl_social_network/frontend/components/collection_list.dart';
-import 'package:vinyl_social_network/models/album.dart';
 
 class HomeView extends StatefulWidget {
   static const route = "/home";

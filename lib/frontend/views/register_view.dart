@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:vinyl_social_network/app_config.dart';
 import 'package:vinyl_social_network/domain/form_data/register_form_data.dart';
-import 'package:vinyl_social_network/frontend/views/login_view.dart';
 
 class RegisterView extends StatefulWidget {
   static const route = '/register';
@@ -20,14 +18,15 @@ class _RegisterViewState extends State<RegisterView> {
 
   void _submit() async {
     if (registerFormKey.currentState!.validate()) {
-      final authService = AppConfig.of(context)!.authService;
-      final registerResponse = await authService.doRegister(registerFormData);
-      // TODO: moze da se desi duplicate email, handle!!!!!!!!!!
-      if (registerResponse.success) {
-        if (mounted) {
-          Navigator.pushReplacementNamed(context, LoginView.route);
-        }
-      }
+      // todo: replace authService with singleton
+      // final authService = AppConfig.of(context)!.authService;
+      // final registerResponse = await authService.doRegister(registerFormData);
+      // // TODO: moze da se desi duplicate email, handle!!!!!!!!!!
+      // if (registerResponse.success) {
+      //   if (mounted) {
+      //     Navigator.pushReplacementNamed(context, LoginView.route);
+      //   }
+      // }
     }
   }
 

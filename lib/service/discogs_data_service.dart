@@ -1,12 +1,15 @@
 import 'package:chaleno/chaleno.dart';
 import 'package:vinyl_social_network/domain/models/album.dart';
-import 'package:vinyl_social_network/service/interface/discogs_data_service_interface.dart';
 import 'package:vinyl_social_network/utils/factory/album_factory.dart';
 
-class DiscogsDataService implements DiscogsDataServiceInterface {
-  const DiscogsDataService() : super();
+class DiscogsDataService {
+  static final DiscogsDataService _instance =
+      DiscogsDataService._privateConstructor();
 
-  @override
+  DiscogsDataService._privateConstructor();
+
+  static DiscogsDataService get instance => _instance;
+
   Future<List<Album>> parseDiscogsPagesToAlbums(
       List<Map<String, dynamic>> pages) async {
     List<Album> albums = [];

@@ -1,12 +1,15 @@
 import 'dart:convert' as convert;
 
 import "package:http/http.dart" as http;
-import 'package:vinyl_social_network/repository/discogs_datasource_interface.dart';
 
-class DiscogsDatasource implements DiscogsDatasourceInterface {
-  const DiscogsDatasource() : super();
+class DiscogsDatasource {
+  static final DiscogsDatasource _instance =
+      DiscogsDatasource._privateConstructor();
 
-  @override
+  DiscogsDatasource._privateConstructor();
+
+  static DiscogsDatasource get instance => _instance;
+
   Future<List<Map<String, dynamic>>> fetchCollectionPages() async {
     List<Map<String, dynamic>> pages = [];
 

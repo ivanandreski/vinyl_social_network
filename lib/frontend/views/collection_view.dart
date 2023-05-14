@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:vinyl_social_network/domain/models/album.dart';
 import 'package:vinyl_social_network/domain/view_model/collection_view_model.dart';
+import 'package:vinyl_social_network/frontend/components/bottom_nav_bar.dart';
 import 'package:vinyl_social_network/frontend/components/collection_list.dart';
 
 class CollectionView extends StatelessWidget {
@@ -18,6 +18,9 @@ class CollectionView extends StatelessWidget {
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           title: Text("Collection"),
         ),
-        body: CollectionListView(albums: collectionViewModel.albums));
+        // todo: add grid view, switcher btn and loading
+        body: CollectionListView(albums: collectionViewModel.albums),
+        // todo: find a way to send currentIndex argument to route!
+        bottomNavigationBar: const BottomNavBar());
   }
 }

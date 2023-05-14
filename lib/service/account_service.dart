@@ -16,7 +16,7 @@ class AccountService {
 
   Future<String?> getDiscogsUsername() async {
     final prefs = await SharedPreferences.getInstance();
-    return prefs.get(SharedPreferencesKeys.discogsUsername) as String;
+    return prefs.get(SharedPreferencesKeys.discogsUsername) as String?;
   }
 
   Future<void> removeDiscogsUsername() async {
@@ -26,7 +26,7 @@ class AccountService {
 
   Future<String?> getToken() async {
     final prefs = await SharedPreferences.getInstance();
-    return prefs.get(SharedPreferencesKeys.token) as String;
+    return prefs.get(SharedPreferencesKeys.token) as String?;
   }
 
   Future<void> removeToken() async {

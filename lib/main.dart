@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vinyl_social_network/domain/view_model/collection_view_model.dart';
+import 'package:vinyl_social_network/domain/view_model/profile_view_model.dart';
 import 'package:vinyl_social_network/frontend/views/collection_view.dart';
 import 'package:vinyl_social_network/frontend/views/login_view.dart';
+import 'package:vinyl_social_network/frontend/views/profile_view.dart';
 import 'package:vinyl_social_network/frontend/views/register_view.dart';
 
 void main() async {
@@ -20,6 +22,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => CollectionViewModel()),
+          ChangeNotifierProvider(create: (_) => ProfileViewModel()),
         ],
         child: MaterialApp(
             title: 'Vinyl Social Network',
@@ -34,6 +37,7 @@ class MyApp extends StatelessWidget {
               CollectionView.route: (ctx) => const CollectionView(),
               LoginView.route: (ctx) => const LoginView(),
               RegisterView.route: (ctx) => const RegisterView(),
+              ProfileView.route: (ctx) => const ProfileView(),
               // QrCodeLoginView.routeName: (ctx) => const QrCodeLoginView(),
               // ProfileScreen.routeName: (ctx) => const ProfileScreen(),
               // PcBuilderScreen.routeName: (ctx) => const PcBuilderScreen(),

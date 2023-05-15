@@ -20,7 +20,6 @@ class CollectionView extends StatelessWidget {
         ),
         // todo: add grid view, switcher btn and loading
         body: CollectionListView(albums: collectionViewModel.albums),
-        // todo: find a way to send currentIndex argument to route!
         bottomNavigationBar: const BottomNavBar());
   }
 }

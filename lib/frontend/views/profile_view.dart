@@ -17,6 +17,7 @@ class ProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final arguments = (ModalRoute.of(context)?.settings.arguments ?? <String, dynamic>{}) as Map;
+    int currentIndex = arguments['currentIndex'] as int;
 
     ProfileViewModel profileViewModel = context.watch<ProfileViewModel>();
     return Scaffold(
@@ -40,6 +41,6 @@ class ProfileView extends StatelessWidget {
                       child: Text("Register"))
                 ],
               ),
-        bottomNavigationBar: const BottomNavBar());
+        bottomNavigationBar: BottomNavBar(currentIndex));
   }
 }

@@ -2,17 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:vinyl_social_network/frontend/views/collection_view.dart';
 import 'package:vinyl_social_network/frontend/views/profile_view.dart';
 
-class BottomNavBar extends StatefulWidget {
-  const BottomNavBar({super.key});
+class BottomNavBar extends StatelessWidget {
+  final int _index;
 
-  @override
-  State<BottomNavBar> createState() => _BottomNavBarState();
-}
+  const BottomNavBar([this._index = 0]);
 
-class _BottomNavBarState extends State<BottomNavBar> {
-  int _index = 0;
-
-  _onItemTapped(int index) {
+  _onItemTapped(BuildContext context, int index) {
     switch (index) {
       case 0:
         Navigator.pushReplacementNamed(context, CollectionView.route, arguments: {'currentIndex': index});
@@ -56,7 +51,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
       ],
       selectedItemColor: Colors.purpleAccent,
       currentIndex: _index,
-      onTap: _onItemTapped,
+      onTap: (index) {
+        _onItemTapped(context, index);
+      },
     );
   }
 }

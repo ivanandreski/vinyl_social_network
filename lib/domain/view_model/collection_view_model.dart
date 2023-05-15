@@ -9,7 +9,7 @@ class CollectionViewModel extends ChangeNotifier {
   final _discogsDatasource = DiscogsDatasource.instance;
   final _discogsDataService = DiscogsDataService.instance;
 
-  bool _loading = false;
+  bool _loading = true;
   List<Album> _albums = [];
 
   bool get loading => _loading;
@@ -34,12 +34,12 @@ class CollectionViewModel extends ChangeNotifier {
     if (parsedAlbums.isEmpty) {
       final pages = await _discogsDatasource.fetchCollectionPages();
 
-      final parsedAlbums =
-          await _discogsDataService.parseDiscogsPagesToAlbums(pages);
+      parsedAlbums = await _discogsDataService.parseDiscogsPagesToAlbums(pages);
 
       await _albumLocalRepository.saveAlbumsBulk(parsedAlbums);
     }
 
     setAlbums(parsedAlbums);
+    setLoading(false);
   }
 }

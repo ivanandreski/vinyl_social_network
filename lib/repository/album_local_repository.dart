@@ -29,11 +29,6 @@ class AlbumLocalRepository {
     return await isar.albums.where().findAll();
   }
 
-  // Stream<List<Album>> listenToCourses() async* {
-  //   final isar = await db;
-  //   yield* isar.albums.where().watch(initialReturn: true);
-  // }
-
   Future<void> cleanDb() async {
     final isar = await db;
     await isar.writeTxn(() => isar.clear());

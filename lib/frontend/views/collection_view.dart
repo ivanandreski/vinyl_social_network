@@ -19,7 +19,7 @@ class CollectionView extends StatelessWidget {
           title: Text("Collection"),
         ),
         // todo: add grid view, switcher btn and loading
-        body: CollectionListView(albums: collectionViewModel.albums),
+        body: const CollectionListView(),
         bottomNavigationBar: const BottomNavBar());
   }
 }

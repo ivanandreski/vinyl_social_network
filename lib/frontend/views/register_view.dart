@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:vinyl_social_network/api/user_service.dart';
 import 'package:vinyl_social_network/domain/form_data/register_form_data.dart';
+import 'package:vinyl_social_network/domain/view_model/profile_view_model.dart';
+import 'package:vinyl_social_network/frontend/views/login_view.dart';
 
 class RegisterView extends StatefulWidget {
   static const route = '/register';
@@ -12,26 +16,30 @@ class RegisterView extends StatefulWidget {
 }
 
 class _RegisterViewState extends State<RegisterView> {
+  final _authService = UserService.instance;
+
   final registerFormKey = GlobalKey<FormState>();
   final registerFormData = RegisterFormData();
+
   String firstNameError = "";
 
   void _submit() async {
     if (registerFormKey.currentState!.validate()) {
-      // todo: replace authService with singleton
-      // final authService = AppConfig.of(context)!.authService;
-      // final registerResponse = await authService.doRegister(registerFormData);
-      // // TODO: moze da se desi duplicate email, handle!!!!!!!!!!
-      // if (registerResponse.success) {
-      //   if (mounted) {
-      //     Navigator.pushReplacementNamed(context, LoginView.route);
-      //   }
-      // }
+      final authService = _authService;
+      final registerResponse = await authService.doRegister(registerFormData);
+      // TODO: moze da se desi duplicate email, handle!!!!!!!!!!
+      if (registerResponse.success) {
+        if (mounted) {
+          Navigator.pushReplacementNamed(context, LoginView.route);
+        }
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final profileViewModel = context.watch<ProfileViewModel>();
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(

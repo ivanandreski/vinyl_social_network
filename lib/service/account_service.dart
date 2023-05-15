@@ -34,7 +34,7 @@ class AccountService {
     await prefs.remove(SharedPreferencesKeys.token);
   }
 
-  Future<void> saveToken(String token) async {
+  Future<void> setToken(String token) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(SharedPreferencesKeys.token, token);
   }

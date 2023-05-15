@@ -16,17 +16,6 @@ class RegisterFormData implements FormDataInterface {
   String? _passwordError = "The password field is required";
   String? _confirmPasswordError = "The confirm password field is required";
 
-  @override
-  String toJsonString() {
-    return json.encode({
-      "first_name": firstName,
-      "last_name": lastName,
-      "email": email,
-      "password": password,
-      "password_confirmation": passwordConfirmation
-    });
-  }
-
   String get firstName => _firstName;
 
   set firstName(String value) {
@@ -86,4 +75,15 @@ class RegisterFormData implements FormDataInterface {
   String? get emailError => _emailError;
   String? get lastNameError => _lastNameError;
   String? get firstNameError => _firstNameError;
+
+  @override
+  String toJsonString() {
+    return json.encode({
+      "first_name": firstName,
+      "last_name": lastName,
+      "email": email,
+      "password": password,
+      "password_confirmation": passwordConfirmation
+    });
+  }
 }

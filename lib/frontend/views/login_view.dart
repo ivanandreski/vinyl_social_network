@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:vinyl_social_network/api/user_service.dart';
 import 'package:vinyl_social_network/domain/form_data/login_form_data.dart';
+import 'package:vinyl_social_network/domain/view_model/profile_view_model.dart';
+import 'package:vinyl_social_network/frontend/views/collection_view.dart';
 
 class LoginView extends StatefulWidget {
   static const route = '/login';
@@ -16,20 +20,21 @@ class _LoginViewState extends State<LoginView> {
   final loginFormData = LoginFormData();
   String errorMessage = "";
 
-  void _submit() async {
-    // final authService = AuthService.instance;
-    // final loginResponse = await authService.login(email, password);
-    // if (loginResponse.success) {
-    //   Navigator.pushReplacementNamed(context, PcBuilderScreen.routeName);
-    // } else {
-    //   setState(() {
-    //     errorMessage = loginResponse.message;
-    //   });
-    // }
+  void _submit(ProfileViewModel profileViewModel) async {
+    final loginResponse = await profileViewModel.doLogin(loginFormData);
+    if (loginResponse.success && mounted) {
+      Navigator.pushReplacementNamed(context, CollectionView.route);
+    } else {
+      setState(() {
+        errorMessage = loginResponse.message;
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    final profileViewModel = context.watch<ProfileViewModel>();
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -46,15 +51,6 @@ class _LoginViewState extends State<LoginView> {
                   const SizedBox(
                     height: 8,
                   ),
-                  if (errorMessage.isNotEmpty)
-                    Text(
-                      errorMessage,
-                      style: const TextStyle(color: Colors.red),
-                    ),
-                  if (errorMessage.isNotEmpty)
-                    const SizedBox(
-                      height: 16,
-                    ),
                   TextFormField(
                     decoration: const InputDecoration(
                       prefixIcon: Icon(Icons.mail),
@@ -102,12 +98,21 @@ class _LoginViewState extends State<LoginView> {
                       });
                     },
                   ),
+                  if (errorMessage.isNotEmpty) ...[
+                    Text(
+                      errorMessage,
+                      style: const TextStyle(color: Colors.red),
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                  ],
                   Container(
                     margin: const EdgeInsets.only(top: 10),
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                             minimumSize: const Size.fromHeight(48)),
-                        onPressed: () => _submit(),
+                        onPressed: () => _submit(profileViewModel),
                         child: const Text("Login")),
                   ),
                 ],

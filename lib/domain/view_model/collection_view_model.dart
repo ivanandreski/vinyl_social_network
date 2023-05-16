@@ -11,7 +11,6 @@ class CollectionViewModel extends ChangeNotifier {
   final _discogsDatasource = DiscogsDatasource.instance;
   final _discogsDataService = DiscogsDataService.instance;
   final _userService = UserService.instance;
-  final _accountService = AccountService.instance;
 
   bool _loading = true;
   List<Album> _albums = [];
@@ -41,7 +40,7 @@ class CollectionViewModel extends ChangeNotifier {
       parsedAlbums = await _discogsDataService.parseDiscogsPagesToAlbums(pages);
 
       await _albumLocalRepository.saveAlbumsBulk(parsedAlbums);
-      final token = await _accountService.getToken();
+      // final token = await _accountService.getToken();
       // if(token != null) {
       //  await _userService.syncCollection(albums, token);
       // }
@@ -49,5 +48,10 @@ class CollectionViewModel extends ChangeNotifier {
 
     setAlbums(parsedAlbums);
     setLoading(false);
+  }
+
+  clear() async {
+    await _albumLocalRepository.cleanDb();
+    setAlbums([]);
   }
 }

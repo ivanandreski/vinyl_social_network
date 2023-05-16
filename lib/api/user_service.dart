@@ -32,6 +32,17 @@ class UserService {
     }
   }
 
+  Future<bool> doLogout(token) async {
+    final url = Uri.parse('${Constants.apiUrl}/api/logout');
+    final response = await http.post(url,
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+          'Authorization': 'Bearer $token',
+        });
+    return (response.statusCode == 200);
+  }
+
   Future<RegisterResponse> doRegister(RegisterFormData registerFormData) async {
     final url = Uri.parse('${Constants.apiUrl}/api/register');
     final response = await http.post(url,

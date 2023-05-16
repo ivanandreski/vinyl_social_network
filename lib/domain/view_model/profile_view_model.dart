@@ -59,6 +59,18 @@ class ProfileViewModel extends ChangeNotifier {
     return response;
   }
 
+  Future<bool> doLogout() async {
+    final response = await _userService.doLogout(_token);
+    if(response) {
+      await _accountService.removeToken();
+      setToken(null);
+    }
+
+    notifyListeners();
+
+    return response;
+  }
+
   changeDiscogsUsername(String discogsUsername) async {
     await _accountService.setDiscogsUsername(discogsUsername);
     setDiscogsUsername(discogsUsername);
@@ -66,5 +78,10 @@ class ProfileViewModel extends ChangeNotifier {
 
   Future<bool> syncCollection(List<Album> albums) async {
     return await _userService.syncCollection(albums, _token!);
+  }
+
+  clearDiscogs() async {
+    await _accountService.removeDiscogsUsername();
+    setDiscogsUsername(null);
   }
 }

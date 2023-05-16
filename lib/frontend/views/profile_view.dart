@@ -3,8 +3,10 @@ import 'package:provider/provider.dart';
 import 'package:vinyl_social_network/domain/view_model/collection_view_model.dart';
 import 'package:vinyl_social_network/domain/view_model/profile_view_model.dart';
 import 'package:vinyl_social_network/frontend/components/bottom_nav_bar.dart';
+import 'package:vinyl_social_network/frontend/views/collection_view.dart';
 import 'package:vinyl_social_network/frontend/views/login_view.dart';
 import 'package:vinyl_social_network/frontend/views/register_view.dart';
+import 'package:vinyl_social_network/utils/util_functions.dart';
 
 class ProfileView extends StatelessWidget {
   static const route = "/profile";
@@ -22,7 +24,8 @@ class ProfileView extends StatelessWidget {
     int currentIndex = arguments['currentIndex'] as int;
 
     ProfileViewModel profileViewModel = context.watch<ProfileViewModel>();
-    CollectionViewModel collectionViewModel = context.watch<CollectionViewModel>();
+    CollectionViewModel collectionViewModel =
+        context.watch<CollectionViewModel>();
 
     return Scaffold(
         backgroundColor: Colors.white,
@@ -30,14 +33,19 @@ class ProfileView extends StatelessWidget {
           title: Text("Profile"),
         ),
         body: Column(
-          // todo: design square sections ofr each setting
+          // todo: design square sections of each setting
           children: [
             if (profileViewModel.discogsUsername != null) ...[
               Text(
                   "Current discogs username: ${profileViewModel.discogsUsername}"),
               ElevatedButton(
-                  onPressed: () {
-                    // todo: clear discogsUSername from data, navigate to collection view
+                  onPressed: () async {
+                    await collectionViewModel.clear();
+                    await profileViewModel.clearDiscogs();
+                    if (context.mounted) {
+                      Navigator.pushReplacementNamed(
+                          context, CollectionView.route);
+                    }
                   },
                   child: Text("Clear discogs username")),
             ] else ...[
@@ -48,20 +56,19 @@ class ProfileView extends StatelessWidget {
               Text("Current token: ${profileViewModel.token}"),
               ElevatedButton(
                   onPressed: () async {
-                    final response = await profileViewModel.syncCollection(collectionViewModel.albums);
+                    final response = await profileViewModel
+                        .syncCollection(collectionViewModel.albums);
 
-                    final snackBar = SnackBar(
-                      // todo: make response class with messages from backend or connection issues
-                      content: Text(response == true ? "Success" : "Something went wrong!"),
-                    );
-
-                    // Find the ScaffoldMessenger in the widget tree
-                    // and use it to show a SnackBar.
-                    if(context.mounted) {
-                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    if (context.mounted) {
+                      showSnackBar(context, response);
                     }
                   },
                   child: Text("Sync Collection")),
+              ElevatedButton(
+                  onPressed: () async {
+                    final response = await profileViewModel.doLogout();
+                  },
+                  child: Text("Logout")),
             ] else ...[
               ElevatedButton(
                   onPressed: () {

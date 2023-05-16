@@ -56,8 +56,8 @@ class UserService {
           "Accept": "application/json",
           'Authorization': 'Bearer $token',
         },
-        body: json.encode({'albums': json.encode(albums.map((e) => e.toJson()).toList())});
-    if (response.statusCode == 200) {
+        body: json.encode({'albums': albums.map((e) => e.toJson()).toList()}));
+    if (response.statusCode == 201) {
       return true;
     } else {
       return false;

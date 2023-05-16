@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:vinyl_social_network/api/user_service.dart';
 import 'package:vinyl_social_network/domain/form_data/login_form_data.dart';
 import 'package:vinyl_social_network/domain/models/album.dart';
+import 'package:vinyl_social_network/domain/response/login_response.dart';
 import 'package:vinyl_social_network/service/account_service.dart';
 
 class ProfileViewModel extends ChangeNotifier {
-  final _authService = UserService.instance;
+  final _userService = UserService.instance;
   final _accountService = AccountService.instance;
 
   bool _loading = false;
@@ -46,8 +47,8 @@ class ProfileViewModel extends ChangeNotifier {
     setDiscogsUsername(discogsUsername);
   }
 
-  doLogin(LoginFormData loginFormData) async {
-    final response = await _authService.doLogin(loginFormData);
+  Future<LoginResponse> doLogin(LoginFormData loginFormData) async {
+    final response = await _userService.doLogin(loginFormData);
     if(response.success) {
       await _accountService.setToken(response.token);
       setToken(response.token);
@@ -64,6 +65,6 @@ class ProfileViewModel extends ChangeNotifier {
   }
 
   Future<bool> syncCollection(List<Album> albums) async {
-    return await _authService.syncCollection(albums, _token!);
+    return await _userService.syncCollection(albums, _token!);
   }
 }

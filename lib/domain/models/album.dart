@@ -26,13 +26,13 @@ class Album {
       required this.durationSeconds});
 
   Map<String, dynamic> toJson() => {
-        'discogsId': discogsId,
-        'discogsResourceUrl': discogsResourceUrl,
-        'discogsReleaseUrl': discogsReleaseUrl,
-        'imageUrl': imageUrl,
+        'discogs_id': discogsId,
+        'discogs_resource_url': discogsResourceUrl,
+        'discogs_release_url': discogsReleaseUrl,
+        'image_url': imageUrl,
         'title': title,
-        'artistName': artistName,
-        'releaseYear': releaseYear,
-        'durationSeconds': durationSeconds,
+        'artist_name': artistName,
+        'release_year': releaseYear,
+        'length_in_seconds': durationSeconds,
       };
 }

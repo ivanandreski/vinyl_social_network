@@ -49,6 +49,17 @@ class ProfileView extends StatelessWidget {
               ElevatedButton(
                   onPressed: () async {
                     final response = await profileViewModel.syncCollection(collectionViewModel.albums);
+
+                    final snackBar = SnackBar(
+                      // todo: make response class with messages from backend or connection issues
+                      content: Text(response == true ? "Success" : "Something went wrong!"),
+                    );
+
+                    // Find the ScaffoldMessenger in the widget tree
+                    // and use it to show a SnackBar.
+                    if(context.mounted) {
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    }
                   },
                   child: Text("Sync Collection")),
             ] else ...[

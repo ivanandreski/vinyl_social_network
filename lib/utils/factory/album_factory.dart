@@ -24,6 +24,7 @@ class AlbumFactory {
       title: title,
       artistName: artist,
       releaseYear: albumMap['basic_information']['year'],
+      // todo: make logic for extracting total time!
       durationSeconds: 0,
     );
   }

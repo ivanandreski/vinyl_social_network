@@ -7,6 +7,7 @@ import 'package:vinyl_social_network/domain/view_model/profile_view_model.dart';
 import 'package:vinyl_social_network/frontend/views/login_view.dart';
 
 class RegisterView extends StatefulWidget {
+  static const title = "Register";
   static const route = '/register';
 
   const RegisterView({super.key});

@@ -8,6 +8,7 @@ import 'package:vinyl_social_network/domain/view_model/profile_view_model.dart';
 import 'package:vinyl_social_network/frontend/views/collection_view.dart';
 
 class LoginView extends StatefulWidget {
+  static const title = "Login";
   static const route = '/login';
 
   const LoginView({super.key});
@@ -28,7 +29,7 @@ class _LoginViewState extends State<LoginView> {
         profileViewModel.syncCollection(collectionViewModel.albums);
       }
 
-      Navigator.pushReplacementNamed(context, CollectionView.route);
+      Navigator.of(context).pop();
     } else {
       setState(() {
         errorMessage = loginResponse.message;

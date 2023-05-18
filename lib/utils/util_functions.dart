@@ -10,3 +10,8 @@ void showSnackBar(BuildContext context, response) {
   // and use it to show a SnackBar.
   ScaffoldMessenger.of(context).showSnackBar(snackBar);
 }
+
+  String snakeCaseToSentenceCase(String value) {
+    return "${value[0].toUpperCase()}${value.substring(1)}"
+        .replaceAll(RegExp(r'(_|-)+'), ' ');
+}

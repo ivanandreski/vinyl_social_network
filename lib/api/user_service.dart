@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:vinyl_social_network/domain/form_data/login_form_data.dart';
 import 'package:vinyl_social_network/domain/form_data/register_form_data.dart';
 import 'package:vinyl_social_network/domain/models/album.dart';
+import 'package:vinyl_social_network/domain/models/user.dart';
 import 'package:vinyl_social_network/domain/response/login_response.dart';
 import 'package:vinyl_social_network/domain/response/register_response.dart';
 import 'package:vinyl_social_network/utils/constants/general.dart';
@@ -34,12 +35,11 @@ class UserService {
 
   Future<bool> doLogout(token) async {
     final url = Uri.parse('${Constants.apiUrl}/api/logout');
-    final response = await http.post(url,
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json",
-          'Authorization': 'Bearer $token',
-        });
+    final response = await http.post(url, headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+      'Authorization': 'Bearer $token',
+    });
     return (response.statusCode == 200);
   }
 
@@ -73,5 +73,27 @@ class UserService {
     } else {
       return false;
     }
+  }
+
+  Future<Map<String, dynamic>> getUser(String token) async {
+    final url = Uri.parse('${Constants.apiUrl}/api/user/my-profile');
+    final response = await http.get(url, headers: {
+      "Accept": "application/json",
+      'Authorization': 'Bearer $token',
+    });
+    return json.decode(response.body);
+  }
+
+  updateProfileVisibility(String visibility, String token) async {
+    final url =
+        Uri.parse('${Constants.apiUrl}/api/user/change-profile-visibility');
+    final response = await http.post(url,
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          'Authorization': 'Bearer $token',
+        },
+        body: json.encode({'visibility_type': visibility}));
+    return json.decode(response.body);
   }
 }

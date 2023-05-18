@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:vinyl_social_network/api/user_service.dart';
+import 'package:vinyl_social_network/domain/enum/user_profile_visibility_enum.dart';
 import 'package:vinyl_social_network/domain/form_data/login_form_data.dart';
 import 'package:vinyl_social_network/domain/models/album.dart';
+import 'package:vinyl_social_network/domain/models/user.dart';
 import 'package:vinyl_social_network/domain/response/login_response.dart';
 import 'package:vinyl_social_network/service/account_service.dart';
 
@@ -12,10 +14,12 @@ class ProfileViewModel extends ChangeNotifier {
   bool _loading = false;
   String? _token;
   String? _discogsUsername;
+  User? _user;
 
   bool get loading => _loading;
   String? get token => _token;
   String? get discogsUsername => _discogsUsername;
+  User? get user => _user;
 
   ProfileViewModel() {
     getToken();
@@ -32,6 +36,11 @@ class ProfileViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  setUser(User user) {
+    _user = user;
+    notifyListeners();
+  }
+
   setDiscogsUsername(String? discogsUsername) {
     _discogsUsername = discogsUsername;
     notifyListeners();
@@ -40,6 +49,7 @@ class ProfileViewModel extends ChangeNotifier {
   getToken() async {
     String? token = await _accountService.getToken();
     setToken(token);
+    await getUser();
   }
 
   getDiscogsUsername() async {
@@ -83,5 +93,21 @@ class ProfileViewModel extends ChangeNotifier {
   clearDiscogs() async {
     await _accountService.removeDiscogsUsername();
     setDiscogsUsername(null);
+  }
+
+  getUser() async {
+    if(token != null) {
+      final response = await _userService.getUser(token!);
+
+      final user = User.fromResponse(response);
+      setUser(user);
+    }
+  }
+
+  updateProfileVisibility(String? visibility) async {
+    if(visibility != null) {
+      final response = await _userService.updateProfileVisibility(visibility, _token!);
+      setUser(User.fromResponse(response));
+    }
   }
 }

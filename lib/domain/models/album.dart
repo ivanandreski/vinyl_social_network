@@ -25,6 +25,11 @@ class Album {
       required this.releaseYear,
       required this.durationSeconds});
 
+  bool containsSearchParam(String searchParam) {
+    return title.toLowerCase().contains(searchParam) ||
+        artistName.toLowerCase().contains(searchParam);
+  }
+
   Map<String, dynamic> toJson() => {
         'discogs_id': discogsId,
         'discogs_resource_url': discogsResourceUrl,

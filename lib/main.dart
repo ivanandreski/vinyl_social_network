@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vinyl_social_network/domain/view_model/collection_view_model.dart';
 import 'package:vinyl_social_network/domain/view_model/profile_view_model.dart';
+import 'package:vinyl_social_network/frontend/views/album_details_view.dart';
 import 'package:vinyl_social_network/frontend/views/collection_view.dart';
+import 'package:vinyl_social_network/frontend/views/home_view.dart';
 import 'package:vinyl_social_network/frontend/views/login_view.dart';
 import 'package:vinyl_social_network/frontend/views/profile_view.dart';
 import 'package:vinyl_social_network/frontend/views/register_view.dart';
@@ -10,13 +12,12 @@ import 'package:vinyl_social_network/frontend/views/register_view.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -27,22 +28,15 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
             title: 'Vinyl Social Network',
             theme: ThemeData(
-              brightness: Brightness.light,
+              colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF363f93)),
               useMaterial3: true,
             ),
-            darkTheme: ThemeData(brightness: Brightness.dark),
-            themeMode: ThemeMode.light,
-            initialRoute: CollectionView.route,
+            initialRoute: HomeView.route,
             routes: {
-              CollectionView.route: (ctx) => const CollectionView(),
+              HomeView.route: (ctx) => const HomeView(),
               LoginView.route: (ctx) => const LoginView(),
               RegisterView.route: (ctx) => const RegisterView(),
-              ProfileView.route: (ctx) => const ProfileView(),
-              // QrCodeLoginView.routeName: (ctx) => const QrCodeLoginView(),
-              // ProfileScreen.routeName: (ctx) => const ProfileScreen(),
-              // PcBuilderScreen.routeName: (ctx) => const PcBuilderScreen(),
-              // SelectProductScreen.routeName: (ctx) => const SelectProductScreen(),
-              // ProductDetailsScreen.routeName: (ctx) => const ProductDetailsScreen(),
+              AlbumDetailsView.route: (ctx) => const AlbumDetailsView(),
             }));
   }
 }

@@ -1,29 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:vinyl_social_network/domain/view_model/collection_view_model.dart';
+import 'package:shake/shake.dart';
 import 'package:vinyl_social_network/domain/view_model/profile_view_model.dart';
-import 'package:vinyl_social_network/frontend/components/bottom_nav_bar.dart';
 import 'package:vinyl_social_network/frontend/components/collection_list.dart';
 import 'package:vinyl_social_network/frontend/components/setup_discogs.dart';
-import 'package:vinyl_social_network/service/account_service.dart';
+import 'package:vinyl_social_network/frontend/dialogs/collection_shake_dialog.dart';
 
-class CollectionView extends StatelessWidget {
-  static const route = "/home";
+class CollectionView extends StatefulWidget {
+  static const title = "Collection";
+  static const route = "/collection";
 
   const CollectionView({super.key});
 
   @override
+  State<StatefulWidget> createState() => _CollectionViewState();
+}
+
+class _CollectionViewState extends State<CollectionView> {
+  @override
+  void initState() {
+    super.initState();
+    ShakeDetector detector = ShakeDetector.autoStart(
+      onPhoneShake: () {
+        showDialog(context: context, builder: (BuildContext context) => const CollectionShakeDialog());
+      },
+      minimumShakeCount: 2,
+      shakeSlopTimeMS: 500,
+      shakeCountResetTime: 3000,
+      shakeThresholdGravity: 2.7,
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
     ProfileViewModel profileViewModel =
-        context.watch<ProfileViewModel>();
+    context.watch<ProfileViewModel>();
 
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          title: Text("Collection"),
+          title: const Text(CollectionView.title),
         ),
-        // todo: add grid view, switcher btn and loading
-        body: profileViewModel.discogsUsername != null ? const CollectionListView() : const SetupDiscogs(),
-        bottomNavigationBar: const BottomNavBar());
+        body: profileViewModel.discogsUsername != null ? const CollectionListView() : const SetupDiscogs());
   }
 }

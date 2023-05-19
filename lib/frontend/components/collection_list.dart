@@ -12,7 +12,7 @@ class CollectionListView extends StatefulWidget {
 }
 
 class _CollectionListViewState extends State<CollectionListView> {
-  TextEditingController _textEditingController = TextEditingController();
+  final TextEditingController _textEditingController = TextEditingController();
 
   @override
   void initState() {

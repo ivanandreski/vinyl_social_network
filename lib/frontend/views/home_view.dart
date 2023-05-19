@@ -3,6 +3,7 @@ import 'package:vinyl_social_network/frontend/components/bottom_nav_bar.dart';
 import 'package:vinyl_social_network/frontend/views/collection_view.dart';
 import 'package:vinyl_social_network/frontend/views/posts_view.dart';
 import 'package:vinyl_social_network/frontend/views/profile_view.dart';
+import 'package:vinyl_social_network/frontend/views/stylus_view.dart';
 
 class HomeView extends StatefulWidget {
   static const route = '/home';
@@ -37,9 +38,8 @@ class _HomeViewState extends State<HomeView> {
           child: const PostsView(),
         ),
         Container(
-          color: Colors.blue,
           alignment: Alignment.center,
-          child: const Text('Page 3'),
+          child: StylusView(),
         ),
         Container(
           child: const ProfileView(),

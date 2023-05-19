@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vinyl_social_network/domain/view_model/collection_view_model.dart';
 import 'package:vinyl_social_network/domain/view_model/profile_view_model.dart';
+import 'package:vinyl_social_network/domain/view_model/stylus_view_model.dart';
 import 'package:vinyl_social_network/frontend/views/album_details_view.dart';
-import 'package:vinyl_social_network/frontend/views/collection_view.dart';
 import 'package:vinyl_social_network/frontend/views/home_view.dart';
 import 'package:vinyl_social_network/frontend/views/login_view.dart';
-import 'package:vinyl_social_network/frontend/views/profile_view.dart';
 import 'package:vinyl_social_network/frontend/views/register_view.dart';
 
 void main() async {
@@ -24,6 +23,7 @@ class MyApp extends StatelessWidget {
         providers: [
           ChangeNotifierProvider(create: (_) => CollectionViewModel()),
           ChangeNotifierProvider(create: (_) => ProfileViewModel()),
+          ChangeNotifierProvider(create: (_) => StylusViewModel()),
         ],
         child: MaterialApp(
             title: 'Vinyl Social Network',

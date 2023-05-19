@@ -62,6 +62,7 @@ class ProfileViewModel extends ChangeNotifier {
     if(response.success) {
       await _accountService.setToken(response.token);
       setToken(response.token);
+      getUser();
     }
 
     notifyListeners();

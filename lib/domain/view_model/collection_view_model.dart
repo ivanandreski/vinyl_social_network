@@ -12,9 +12,10 @@ class CollectionViewModel extends ChangeNotifier {
 
   bool _loading = true;
   List<Album> _albums = [];
+  String _searchParam = "";
 
   bool get loading => _loading;
-
+  String get searchParam => _searchParam;
   List<Album> get albums => _albums;
 
   CollectionViewModel() {
@@ -28,6 +29,11 @@ class CollectionViewModel extends ChangeNotifier {
 
   setAlbums(List<Album> albums) {
     _albums = albums;
+    notifyListeners();
+  }
+
+  setSearchParam(String searchParam) {
+    _searchParam = searchParam;
     notifyListeners();
   }
 
@@ -59,10 +65,13 @@ class CollectionViewModel extends ChangeNotifier {
     return (_albums.toList()..shuffle()).first;
   }
 
-  List<Album> filterAlbums(String searchParam) {
-    searchParam = searchParam.toLowerCase();
+  List<Album> filteredAlbums() {
+    if(_searchParam.isEmpty) {
+      return _albums;
+    }
+
     return _albums
-        .where((album) => album.containsSearchParam(searchParam))
+        .where((album) => album.containsSearchParam(_searchParam.toLowerCase()))
         .toList();
   }
 }

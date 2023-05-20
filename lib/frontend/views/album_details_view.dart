@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vinyl_social_network/domain/models/album.dart';
 import 'package:vinyl_social_network/frontend/dialogs/create_play_session_dialog.dart';
+import 'package:vinyl_social_network/frontend/dialogs/create_post_dialog.dart';
 import 'package:vinyl_social_network/utils/constants/urls.dart';
 
 class AlbumDetailsView extends StatelessWidget {
@@ -86,11 +87,23 @@ class AlbumDetailsView extends StatelessWidget {
                                         left: 5, right: 5),
                                     child: GestureDetector(
                                         onTap: () {
-                                          // todo: pass the album
                                           showDialog(
                                               context: context,
                                               builder: (BuildContext context) =>
-                                                  CreatePlaySessionDialog());
+                                                  CreatePlaySessionDialog(
+                                                      album: album)).then(
+                                              (value) => {
+                                                    if (value == true)
+                                                      {
+                                                        showDialog(
+                                                            context: context,
+                                                            builder: (BuildContext
+                                                                    context) =>
+                                                                CreatePostDialog(
+                                                                    album:
+                                                                        album))
+                                                      }
+                                                  });
                                         },
                                         child: Container(
                                           height: 40,
@@ -117,6 +130,7 @@ class AlbumDetailsView extends StatelessWidget {
                                                   Icon(Icons.music_note)
                                                 ]),
                                           ),
+                                          // todo: add list view ith previously played times for this album or say you havent played yet if its empty
                                         )),
                                   ),
                                 )

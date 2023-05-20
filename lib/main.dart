@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vinyl_social_network/domain/view_model/collection_view_model.dart';
+import 'package:vinyl_social_network/domain/view_model/post_view_model.dart';
 import 'package:vinyl_social_network/domain/view_model/profile_view_model.dart';
 import 'package:vinyl_social_network/domain/view_model/stylus_view_model.dart';
 import 'package:vinyl_social_network/frontend/views/album_details_view.dart';
 import 'package:vinyl_social_network/frontend/views/home_view.dart';
 import 'package:vinyl_social_network/frontend/views/login_view.dart';
+import 'package:vinyl_social_network/frontend/views/post_details_view.dart';
 import 'package:vinyl_social_network/frontend/views/register_view.dart';
 
 void main() async {
@@ -24,6 +26,7 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (_) => CollectionViewModel()),
           ChangeNotifierProvider(create: (_) => ProfileViewModel()),
           ChangeNotifierProvider(create: (_) => StylusViewModel()),
+          ChangeNotifierProvider(create: (_) => PostViewModel()),
         ],
         child: MaterialApp(
             title: 'Vinyl Social Network',
@@ -37,6 +40,7 @@ class MyApp extends StatelessWidget {
               LoginView.route: (ctx) => const LoginView(),
               RegisterView.route: (ctx) => const RegisterView(),
               AlbumDetailsView.route: (ctx) => const AlbumDetailsView(),
+              PostDetailsView.route: (ctx) => const PostDetailsView(),
             }));
   }
 }

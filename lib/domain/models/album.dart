@@ -25,6 +25,17 @@ class Album {
       required this.releaseYear,
       required this.durationSeconds});
 
+  Album.fromResponse(Map<String, dynamic> response) {
+    discogsId = response['discogs_id'];
+    discogsResourceUrl = response['discogs_resource_url'];
+    discogsReleaseUrl = response['discogs_release_url'];
+    imageUrl = response['image_url'];
+    title = response['title'];
+    artistName = response['artist_name'];
+    releaseYear = response['release_year'];
+    durationSeconds = response['length_in_seconds'];
+  }
+
   bool containsSearchParam(String searchParam) {
     return title.toLowerCase().contains(searchParam) ||
         artistName.toLowerCase().contains(searchParam);

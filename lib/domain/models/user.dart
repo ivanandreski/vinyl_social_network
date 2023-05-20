@@ -26,6 +26,8 @@ class User {
     visibility = userResponse['visibility'];
   }
 
+  String get fullName => "$firstName $lastName";
+
   String get dateString =>
       "${createdAt.day.toString().padLeft(2, '0')}-${createdAt.month.toString()}-${createdAt.year.toString().padLeft(2, '0')}";
 }

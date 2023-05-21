@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:vinyl_social_network/domain/models/post.dart';
 import 'package:vinyl_social_network/frontend/components/like_toggle.dart';
 import 'package:vinyl_social_network/frontend/views/post_details_view.dart';
+import 'package:vinyl_social_network/frontend/views/user_details_view.dart';
 
 class PostCard extends StatelessWidget {
   late final Post post;
@@ -19,7 +20,7 @@ class PostCard extends StatelessWidget {
                     borderRadius: BorderRadius.all(Radius.circular(10)))),
             onPressed: () {
               Navigator.pushNamed(context, PostDetailsView.route,
-                  arguments: post);
+                  arguments: post.postId);
             },
             child: Row(
               children: [
@@ -73,9 +74,9 @@ class PostCard extends StatelessWidget {
                   child: TextButton(
                       onPressed: () {
                         Navigator.pushNamed(context, PostDetailsView.route,
-                            arguments: post);
+                            arguments: post.id);
                       },
-                      child: Text('Comments: 12',
+                      child: Text('Comments: ${post.numOfComments}',
                           style: TextStyle(fontSize: 12, color: Colors.grey))),
                 ),
               ),
@@ -86,7 +87,7 @@ class PostCard extends StatelessWidget {
                   alignment: Alignment.center,
                   child: TextButton(
                     onPressed: () {
-                      // todo: go to user profile
+                      Navigator.pushReplacementNamed(context, UserDetailsView.route, arguments: post.user.id);
                     },
                     child: Text(post.user.fullName,
                         style: TextStyle(fontSize: 12)),

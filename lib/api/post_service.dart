@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:vinyl_social_network/domain/models/comment.dart';
 import 'package:vinyl_social_network/domain/models/post.dart';
 import 'package:vinyl_social_network/domain/models/stylus.dart';
 import 'package:vinyl_social_network/utils/constants/general.dart';
@@ -46,5 +47,36 @@ class PostService {
       "Content-Type": "application/json",
       'Authorization': 'Bearer $token',
     });
+  }
+
+  Future<List<Comment>> getPostComments(int postId) async {
+    final url = Uri.parse('${Constants.apiUrl}/api/post/$postId/comment');
+    final response = await http.get(url, headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+    });
+    if (response.statusCode == 200) {
+      final jsonData = jsonDecode(response.body);
+      return Comment.fromJsonList(jsonData['comments']);
+    } else {
+      throw Exception('Failed to fetch data');
+    }
+  }
+
+  Future<void> createComment(
+      {required int postId,
+      required String body,
+      required String token,
+      int? commentId}) async {
+    final url = Uri.parse('${Constants.apiUrl}/api/post/$postId/comment/add');
+    final response = await http.post(url,
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          'Authorization': 'Bearer $token',
+        },
+        body: json.encode(
+            {"body": body, if (commentId != null) "comment_id": commentId}));
+    // return Comment.fromJson(json.decode(response.body));
   }
 }

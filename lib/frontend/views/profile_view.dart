@@ -6,6 +6,7 @@ import 'package:vinyl_social_network/frontend/components/profile_dialog_button.d
 import 'package:vinyl_social_network/frontend/dialogs/profile_visibility_dialog.dart';
 import 'package:vinyl_social_network/frontend/views/login_view.dart';
 import 'package:vinyl_social_network/frontend/views/register_view.dart';
+import 'package:vinyl_social_network/utils/util_functions.dart';
 
 class ProfileView extends StatelessWidget {
   static const route = "/profile";
@@ -122,7 +123,7 @@ class ProfileView extends StatelessWidget {
                                         style: TextStyle(fontSize: 20),
                                       ),
                                       Text(
-                                        profileViewModel.user!.dateString,
+                                        dateTimeToDateString(profileViewModel.user!.createdAt),
                                         style: const TextStyle(fontSize: 16),
                                       )
                                     ],

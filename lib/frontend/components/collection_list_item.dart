@@ -16,7 +16,7 @@ class CollectionListItem extends StatelessWidget {
         child: GestureDetector(
           onTap: () {
             Navigator.pushNamed(context, AlbumDetailsView.route,
-                arguments: album);
+                arguments: album.discogsId);
           },
           child: Stack(
             children: [

@@ -7,6 +7,7 @@ import 'package:vinyl_social_network/domain/models/album.dart';
 import 'package:vinyl_social_network/domain/models/user.dart';
 import 'package:vinyl_social_network/domain/response/login_response.dart';
 import 'package:vinyl_social_network/domain/response/register_response.dart';
+import 'package:vinyl_social_network/service/account_service.dart';
 import 'package:vinyl_social_network/utils/constants/general.dart';
 
 class UserService {
@@ -75,13 +76,23 @@ class UserService {
     }
   }
 
-  Future<Map<String, dynamic>> getUser(String token) async {
-    final url = Uri.parse('${Constants.apiUrl}/api/user/my-profile');
+  Future<Map<String, dynamic>> getMyProfile(String token) async {
+    final url = Uri.parse('${Constants.apiUrl}/api/user');
     final response = await http.get(url, headers: {
       "Accept": "application/json",
       'Authorization': 'Bearer $token',
     });
     return json.decode(response.body);
+  }
+
+  Future<User> getUser(int userId) async {
+    final token = await AccountService.instance.getToken();
+    final url = Uri.parse('${Constants.apiUrl}/api/user/$userId');
+    final response = await http.get(url, headers: {
+      "Accept": "application/json",
+      if(token != null) 'Authorization': 'Bearer $token',
+    });
+    return User.fromResponse(json.decode(response.body));
   }
 
   updateProfileVisibility(String visibility, String token) async {

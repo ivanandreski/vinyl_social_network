@@ -32,9 +32,8 @@ class _CollectionListViewState extends State<CollectionListView> {
     CollectionViewModel collectionViewModel =
         context.watch<CollectionViewModel>();
 
-    // TODO: make dedicated loading widget
     return collectionViewModel.loading
-        ? const Text("Loading")
+        ? const CircularProgressIndicator() // todo: see how this works
         : Column(
             children: [
               Container(

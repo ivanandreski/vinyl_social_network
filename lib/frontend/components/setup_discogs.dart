@@ -11,7 +11,7 @@ class SetupDiscogs extends StatefulWidget {
   const SetupDiscogs({super.key});
 
   @override
-  State<SetupDiscogs> createState() => _SetupDiscogsState();
+  State<StatefulWidget> createState() => _SetupDiscogsState();
 }
 
 class _SetupDiscogsState extends State<SetupDiscogs> {

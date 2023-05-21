@@ -18,13 +18,16 @@ class PostsView extends StatelessWidget {
         appBar: AppBar(
           title: const Text(title),
         ),
-        body: ListView.builder(
-            padding: const EdgeInsets.only(left: 8, right: 8),
-            itemCount: postViewModel.posts.length,
-            itemBuilder: (BuildContext context, int index) {
-              final post = postViewModel.posts[index];
-              return Container(
-                  padding: const EdgeInsets.all(4), child: PostCard(post: post));
-            }));
+        body: postViewModel.loading
+            ? CircularProgressIndicator()
+            : ListView.builder(
+                padding: const EdgeInsets.only(left: 8, right: 8),
+                itemCount: postViewModel.posts.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final post = postViewModel.posts[index];
+                  return Container(
+                      padding: const EdgeInsets.all(4),
+                      child: PostCard(post: post));
+                }));
   }
 }

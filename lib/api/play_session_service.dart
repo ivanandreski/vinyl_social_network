@@ -11,11 +11,6 @@ class PlaySessionService {
 
   static PlaySessionService get instance => _instance;
 
-  // Future<void> createPost(
-  //     {required String text,
-  //       required String discogsId,
-  //       required String token}) async {
-
   createPlaySession(
       {required int stylusId,
       required String token,

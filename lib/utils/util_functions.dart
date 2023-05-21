@@ -11,7 +11,11 @@ void showSnackBar(BuildContext context, response) {
   ScaffoldMessenger.of(context).showSnackBar(snackBar);
 }
 
-  String snakeCaseToSentenceCase(String value) {
-    return "${value[0].toUpperCase()}${value.substring(1)}"
-        .replaceAll(RegExp(r'(_|-)+'), ' ');
+String snakeCaseToSentenceCase(String value) {
+  return "${value[0].toUpperCase()}${value.substring(1)}"
+      .replaceAll(RegExp(r'(_|-)+'), ' ');
+}
+
+String dateTimeToDateString(DateTime date) {
+  return "${date.day.toString().padLeft(2, '0')}-${date.month.toString()}-${date.year.toString().padLeft(2, '0')}";
 }

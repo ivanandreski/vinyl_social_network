@@ -9,6 +9,7 @@ import 'package:vinyl_social_network/frontend/views/home_view.dart';
 import 'package:vinyl_social_network/frontend/views/login_view.dart';
 import 'package:vinyl_social_network/frontend/views/post_details_view.dart';
 import 'package:vinyl_social_network/frontend/views/register_view.dart';
+import 'package:vinyl_social_network/frontend/views/user_details_view.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -41,6 +42,7 @@ class MyApp extends StatelessWidget {
               RegisterView.route: (ctx) => const RegisterView(),
               AlbumDetailsView.route: (ctx) => const AlbumDetailsView(),
               PostDetailsView.route: (ctx) => const PostDetailsView(),
+              UserDetailsView.route: (ctx) => const UserDetailsView(),
             }));
   }
 }

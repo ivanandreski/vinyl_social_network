@@ -58,7 +58,15 @@ class PostViewModel extends ChangeNotifier {
     final token = await _accountService.getToken();
     if(token == null) return;
 
-    await _postService.toggleLikePost(token: token!, postId: postId);
+    await _postService.toggleLikePost(token: token, postId: postId);
+    await getPosts();
+  }
+
+  createComment({required int postId, required String body, int? commentId}) async {
+    final token = await _accountService.getToken();
+    if(token == null) return;
+
+    await _postService.createComment(postId: postId, body: body, token: token, commentId: commentId);
     await getPosts();
   }
 }

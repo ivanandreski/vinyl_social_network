@@ -41,6 +41,7 @@ class _CreatePostDialogState extends State<CreatePostDialog> {
           ? [
               ElevatedButton(
                 onPressed: () async {
+                  // todo: move this to a function
                   String enteredText = _textEditingController.text;
 
                   await postViewModel.createPost(

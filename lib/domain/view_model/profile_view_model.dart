@@ -98,7 +98,7 @@ class ProfileViewModel extends ChangeNotifier {
 
   getUser() async {
     if(token != null) {
-      final response = await _userService.getUser(token!);
+      final response = await _userService.getMyProfile(token!);
 
       final user = User.fromResponse(response);
       setUser(user);

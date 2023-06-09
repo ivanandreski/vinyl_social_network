@@ -87,12 +87,39 @@ class UserService {
 
   Future<User> getUser(int userId) async {
     final token = await AccountService.instance.getToken();
-    final url = Uri.parse('${Constants.apiUrl}/api/user/$userId');
+    final url = Uri.parse('${Constants.apiUrl}/api/user/profile/$userId');
     final response = await http.get(url, headers: {
       "Accept": "application/json",
-      if(token != null) 'Authorization': 'Bearer $token',
+      if (token != null) 'Authorization': 'Bearer $token',
     });
     return User.fromResponse(json.decode(response.body));
+  }
+
+  Future<List<dynamic>> searchUsers(String search) async {
+    final token = await AccountService.instance.getToken();
+    final url =
+        Uri.parse('${Constants.apiUrl}/api/user/search-users?name=$search');
+    final response = await http.get(url, headers: {
+      "Accept": "application/json",
+      if (token != null) 'Authorization': 'Bearer $token',
+    });
+    if (response.statusCode == 200) {
+      return json.decode(response.body)['data'];
+    } else {
+      return [];
+    }
+  }
+
+  toggleFollowPerson(int userId) async {
+    final token = await AccountService.instance.getToken();
+    final url = Uri.parse('${Constants.apiUrl}/api/user/toggle-follow/$userId');
+    final response = await http.post(
+      url,
+      headers: {
+        "Accept": "application/json",
+        'Authorization': 'Bearer $token',
+      },
+    );
   }
 
   updateProfileVisibility(String visibility, String token) async {

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:vinyl_social_network/api/user_service.dart';
 import 'package:vinyl_social_network/domain/models/album.dart';
 import 'package:vinyl_social_network/repository/album_local_repository.dart';
 import 'package:vinyl_social_network/repository/discogs_datasource.dart';

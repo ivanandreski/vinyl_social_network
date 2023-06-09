@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:vinyl_social_network/api/user_service.dart';
-import 'package:vinyl_social_network/domain/enum/user_profile_visibility_enum.dart';
 import 'package:vinyl_social_network/domain/form_data/login_form_data.dart';
 import 'package:vinyl_social_network/domain/models/album.dart';
 import 'package:vinyl_social_network/domain/models/user.dart';

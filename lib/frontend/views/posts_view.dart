@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vinyl_social_network/domain/view_model/post_view_model.dart';
 import 'package:vinyl_social_network/domain/view_model/profile_view_model.dart';
+import 'package:vinyl_social_network/frontend/components/nav_drawer.dart';
 import 'package:vinyl_social_network/frontend/components/post_card.dart';
 
 class PostsView extends StatelessWidget {
@@ -15,6 +16,7 @@ class PostsView extends StatelessWidget {
     PostViewModel postViewModel = context.watch<PostViewModel>();
 
     return Scaffold(
+        drawer: const NavDrawer(),
         appBar: AppBar(
           title: const Text(title),
         ),

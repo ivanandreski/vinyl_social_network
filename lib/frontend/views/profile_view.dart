@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vinyl_social_network/domain/view_model/collection_view_model.dart';
 import 'package:vinyl_social_network/domain/view_model/profile_view_model.dart';
+import 'package:vinyl_social_network/frontend/components/nav_drawer.dart';
 import 'package:vinyl_social_network/frontend/components/profile_dialog_button.dart';
 import 'package:vinyl_social_network/frontend/dialogs/profile_visibility_dialog.dart';
 import 'package:vinyl_social_network/frontend/views/login_view.dart';
@@ -24,6 +25,7 @@ class ProfileView extends StatelessWidget {
         context.watch<CollectionViewModel>();
 // todo: add api call for get user when i pull down from the top (refresh gesture)
     return Scaffold(
+        drawer: const NavDrawer(),
         backgroundColor: Colors.white,
         appBar: AppBar(
           title: const Text("Profile"),

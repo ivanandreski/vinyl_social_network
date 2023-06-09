@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:shake/shake.dart';
 import 'package:vinyl_social_network/domain/view_model/profile_view_model.dart';
 import 'package:vinyl_social_network/frontend/components/collection_list.dart';
+import 'package:vinyl_social_network/frontend/components/nav_drawer.dart';
 import 'package:vinyl_social_network/frontend/components/setup_discogs.dart';
 import 'package:vinyl_social_network/frontend/dialogs/collection_shake_dialog.dart';
 
@@ -37,6 +38,7 @@ class _CollectionViewState extends State<CollectionView> {
     context.watch<ProfileViewModel>();
 
     return Scaffold(
+        drawer: const NavDrawer(),
         appBar: AppBar(
           title: const Text(CollectionView.title),
         ),

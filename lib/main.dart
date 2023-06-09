@@ -7,6 +7,7 @@ import 'package:vinyl_social_network/domain/view_model/stylus_view_model.dart';
 import 'package:vinyl_social_network/frontend/views/album_details_view.dart';
 import 'package:vinyl_social_network/frontend/views/home_view.dart';
 import 'package:vinyl_social_network/frontend/views/login_view.dart';
+import 'package:vinyl_social_network/frontend/views/people_view.dart';
 import 'package:vinyl_social_network/frontend/views/post_details_view.dart';
 import 'package:vinyl_social_network/frontend/views/register_view.dart';
 import 'package:vinyl_social_network/frontend/views/user_details_view.dart';
@@ -43,6 +44,7 @@ class MyApp extends StatelessWidget {
               AlbumDetailsView.route: (ctx) => const AlbumDetailsView(),
               PostDetailsView.route: (ctx) => const PostDetailsView(),
               UserDetailsView.route: (ctx) => const UserDetailsView(),
+              PeopleView.route: (ctx) => const PeopleView(),
             }));
   }
 }

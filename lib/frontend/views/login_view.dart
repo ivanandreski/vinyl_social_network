@@ -5,6 +5,7 @@ import 'package:vinyl_social_network/api/user_service.dart';
 import 'package:vinyl_social_network/domain/form_data/login_form_data.dart';
 import 'package:vinyl_social_network/domain/view_model/collection_view_model.dart';
 import 'package:vinyl_social_network/domain/view_model/profile_view_model.dart';
+import 'package:vinyl_social_network/frontend/components/nav_drawer.dart';
 import 'package:vinyl_social_network/frontend/views/collection_view.dart';
 
 class LoginView extends StatefulWidget {
@@ -44,6 +45,7 @@ class _LoginViewState extends State<LoginView> {
 
     return Scaffold(
       backgroundColor: Colors.white,
+      drawer: const NavDrawer(),
       appBar: AppBar(
         title: Text("Login Page"),
       ),

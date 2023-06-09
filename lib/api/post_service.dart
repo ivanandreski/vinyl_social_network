@@ -3,10 +3,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:vinyl_social_network/domain/models/comment.dart';
 import 'package:vinyl_social_network/domain/models/post.dart';
-import 'package:vinyl_social_network/domain/models/stylus.dart';
 import 'package:vinyl_social_network/utils/constants/general.dart';
 import 'package:vinyl_social_network/utils/factory/post_factory.dart';
-import 'package:vinyl_social_network/utils/factory/stylus_factory.dart';
 
 class PostService {
   static final PostService _instance = PostService._privateConstructor();

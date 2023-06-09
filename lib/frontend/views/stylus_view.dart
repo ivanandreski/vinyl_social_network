@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vinyl_social_network/domain/view_model/stylus_view_model.dart';
+import 'package:vinyl_social_network/frontend/components/nav_drawer.dart';
 import 'package:vinyl_social_network/frontend/components/stylus_card.dart';
 import 'package:vinyl_social_network/frontend/dialogs/create_stylus_dialog.dart';
 
@@ -27,6 +28,7 @@ class _StylusViewState extends State<StylusView> {
           },
           child: const Icon(Icons.add),
         ),
+        drawer: const NavDrawer(),
         appBar: AppBar(title: const Text("Styluses")),
         body: Container(
             padding: const EdgeInsets.only(left: 20, right: 20),

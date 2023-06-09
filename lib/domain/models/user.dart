@@ -1,4 +1,3 @@
-import 'package:vinyl_social_network/domain/enum/user_profile_visibility_enum.dart';
 
 class User {
   late final int id;
@@ -7,6 +6,7 @@ class User {
   late String email;
   late DateTime createdAt;
   late String visibility;
+  late bool isFollow;
 
   User(
       {required this.id,
@@ -14,7 +14,8 @@ class User {
       required this.lastName,
       required this.email,
       required this.createdAt,
-      required this.visibility});
+      required this.visibility,
+      this.isFollow = false});
 
 
   User.fromResponse(Map<String, dynamic> userResponse) {
@@ -24,6 +25,7 @@ class User {
     lastName = userResponse['last_name'];
     createdAt = DateTime.parse(userResponse['created_at']);
     visibility = userResponse['visibility'];
+    isFollow = userResponse['is_follow'] ?? false;
   }
 
   String get fullName => "$firstName $lastName";

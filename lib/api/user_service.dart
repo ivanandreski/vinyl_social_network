@@ -110,7 +110,7 @@ class UserService {
     }
   }
 
-  toggleFollowPerson(int userId) async {
+  Future<bool> toggleFollowPerson(int userId) async {
     final token = await AccountService.instance.getToken();
     final url = Uri.parse('${Constants.apiUrl}/api/user/toggle-follow/$userId');
     final response = await http.post(
@@ -120,6 +120,7 @@ class UserService {
         'Authorization': 'Bearer $token',
       },
     );
+    return response.statusCode == 200;
   }
 
   updateProfileVisibility(String visibility, String token) async {

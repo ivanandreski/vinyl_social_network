@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:vinyl_social_network/api/user_service.dart';
 import 'package:vinyl_social_network/domain/enum/user_profile_visibility_enum.dart';
 import 'package:vinyl_social_network/domain/models/user.dart';
+import 'package:vinyl_social_network/frontend/components/custom_circular_progress_indicator.dart';
 import 'package:vinyl_social_network/frontend/components/follow_toggle.dart';
 import 'package:vinyl_social_network/frontend/components/nav_drawer.dart';
 
@@ -45,7 +46,7 @@ class _UserDetailsViewState extends State<UserDetailsView> {
         body: SingleChildScrollView(
             // todo: add checks for friends only
             child: (_loading == true || _user == null)
-                ? CircularProgressIndicator()
+                ? const CustomCircularProgressIndication()
                 : (_user!.visibility == UserProfileVisibilityEnum.private
                     ? Text("This profile is private!")
                     : Container(

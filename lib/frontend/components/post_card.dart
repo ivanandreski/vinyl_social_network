@@ -74,7 +74,7 @@ class PostCard extends StatelessWidget {
                   child: TextButton(
                       onPressed: () {
                         Navigator.pushNamed(context, PostDetailsView.route,
-                            arguments: post.id);
+                            arguments: post.postId);
                       },
                       child: Text('Comments: ${post.numOfComments}',
                           style: TextStyle(fontSize: 12, color: Colors.grey))),

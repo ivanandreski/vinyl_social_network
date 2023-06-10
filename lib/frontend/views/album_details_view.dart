@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:vinyl_social_network/api/album_service.dart';
+import 'package:vinyl_social_network/api/play_session_service.dart';
 import 'package:vinyl_social_network/domain/models/album.dart';
 import 'package:vinyl_social_network/frontend/components/nav_drawer.dart';
 import 'package:vinyl_social_network/frontend/dialogs/create_play_session_dialog.dart';
@@ -16,21 +18,33 @@ class AlbumDetailsView extends StatefulWidget {
 }
 
 class _AlbumDetailsViewState extends State<AlbumDetailsView> {
+  final _playSessionService = PlaySessionService.instance;
+
   Album? _album;
+  List<dynamic> _playSessions = [];
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       final discogsId = ModalRoute.of(context)!.settings.arguments as String;
-      fetchAlbum(discogsId);
+      _fetchAlbum(discogsId);
+      _fetchPlaySessions(discogsId);
     });
   }
 
-  fetchAlbum(String discogsId) async {
+  _fetchAlbum(String discogsId) async {
     final album = await AlbumService.instance.getAlbumById(discogsId);
     setState(() {
       _album = album;
+    });
+  }
+
+  _fetchPlaySessions(String discogsId) async {
+    final playSessions =
+        await _playSessionService.getAlbumPlaySessions(discogsId);
+    setState(() {
+      _playSessions = playSessions;
     });
   }
 
@@ -58,22 +72,22 @@ class _AlbumDetailsViewState extends State<AlbumDetailsView> {
                         ),
                         Text(
                           _album!.title,
-                          style: TextStyle(fontSize: 32),
+                          style: const TextStyle(fontSize: 32),
                         ),
                         Text(
                           _album!.artistName,
-                          style: TextStyle(fontSize: 24),
+                          style: const TextStyle(fontSize: 24),
                         ),
                         Text(
                           _album!.releaseYear.toString(),
-                          style: TextStyle(fontSize: 22),
+                          style: const TextStyle(fontSize: 22),
                         ),
                         Container(
-                            padding: EdgeInsets.only(left: 5, right: 5),
+                            padding: const EdgeInsets.only(left: 5, right: 5),
                             child: Column(
                               children: [
-                                Divider(),
-                                SizedBox(
+                                const Divider(),
+                                const SizedBox(
                                   height: 5,
                                 ),
                                 Row(
@@ -84,8 +98,15 @@ class _AlbumDetailsViewState extends State<AlbumDetailsView> {
                                         padding: const EdgeInsets.only(
                                             left: 5, right: 5),
                                         child: GestureDetector(
-                                          onTap: () {
-                                            print("Discogs press");
+                                          onTap: () async {
+                                            if (!await launchUrl(
+                                              Uri.parse(
+                                                  _album!.discogsReleaseUrl),
+                                              mode: LaunchMode.inAppWebView,
+                                            )) {
+                                              throw Exception(
+                                                  'Could not launch url');
+                                            }
                                           },
                                           child: Container(
                                             height: 40,
@@ -101,8 +122,8 @@ class _AlbumDetailsViewState extends State<AlbumDetailsView> {
                                                     color: Colors.black),
                                                 image: const DecorationImage(
                                                     fit: BoxFit.contain,
-                                                    image: NetworkImage(Urls
-                                                        .discogsButtonIMageUrl))),
+                                                    image: AssetImage(
+                                                        'assets/discogs-logo-icon.png'))),
                                           ),
                                         ),
                                       ),
@@ -162,12 +183,26 @@ class _AlbumDetailsViewState extends State<AlbumDetailsView> {
                                                       Icon(Icons.music_note)
                                                     ]),
                                               ),
-                                              // todo: add list view ith previously played times for this album or say you havent played yet if its empty
                                             )),
                                       ),
-                                    )
+                                    ),
                                   ],
                                 ),
+                                const SizedBox(height: 10),
+                                Center(
+                                    child: Card(
+                                        color: Colors.white,
+                                        child: Container(
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            padding: const EdgeInsets.all(10),
+                                            child: Center(
+                                                child: _playSessions.isEmpty
+                                                    ? const Text(
+                                                        "You haven't listened to this album yet!")
+                                                    : Text(
+                                                        "You have listened to this album ${_playSessions.length} times!")))))
                               ],
                             ))
                       ],

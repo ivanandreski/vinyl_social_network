@@ -10,12 +10,19 @@ class PostViewModel extends ChangeNotifier {
   final _accountService = AccountService.instance;
 
   bool _loading = true;
-
   List<Post> _posts = [];
 
-  List<Post> get posts => _posts;
+  List<Post> get posts => followingOnly
+      ? _posts.where((p) => p.user.isFollow).toList()
+      : _posts;
 
   bool get loading => _loading;
+
+  bool followingOnly = false;
+  setFollowingOnly(bool followingOnly) {
+    this.followingOnly = followingOnly;
+    notifyListeners();
+  }
 
   PostViewModel() {
     getPosts();
@@ -49,24 +56,27 @@ class PostViewModel extends ChangeNotifier {
     final token = await _accountService.getToken();
 
     setLoading(true);
-    await _postService.createPost(token: token!, text: text, discogsId: discogsId);
+    await _postService.createPost(
+        token: token!, text: text, discogsId: discogsId);
     await getPosts();
     setLoading(false);
   }
 
   likePost(int postId) async {
     final token = await _accountService.getToken();
-    if(token == null) return;
+    if (token == null) return;
 
     await _postService.toggleLikePost(token: token, postId: postId);
     await getPosts();
   }
 
-  createComment({required int postId, required String body, int? commentId}) async {
+  createComment(
+      {required int postId, required String body, int? commentId}) async {
     final token = await _accountService.getToken();
-    if(token == null) return;
+    if (token == null) return;
 
-    await _postService.createComment(postId: postId, body: body, token: token, commentId: commentId);
+    await _postService.createComment(
+        postId: postId, body: body, token: token, commentId: commentId);
     await getPosts();
   }
 }

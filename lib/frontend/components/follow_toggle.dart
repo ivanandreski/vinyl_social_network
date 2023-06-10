@@ -25,22 +25,28 @@ class _FollowToggleState extends State<FollowToggle> {
     _isFollow = widget.isFollow;
   }
 
+  _handleFollowPress() async {
+    final result = await _userService.toggleFollowPerson(widget.userId);
+    if (result) {
+      setState(() {
+        _isFollow = !_isFollow;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return TextButton(
-        onPressed: () async {
-          await _userService.toggleFollowPerson(widget.userId);
-          setState(() {
-            _isFollow = !_isFollow;
-          });
-        },
+        onPressed: _handleFollowPress,
         child: SizedBox(
           width: 70,
           child: Row(children: [
-            Text(
+            Center(
+                child: Text(
               _isFollow ? "Unfollow" : "Follow",
+              textAlign: TextAlign.center,
               style: const TextStyle(color: Colors.grey, fontSize: 14),
-            )
+            ))
           ]),
         ));
   }

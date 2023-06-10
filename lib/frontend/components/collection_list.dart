@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:vinyl_social_network/domain/models/album.dart';
 import 'package:vinyl_social_network/domain/view_model/collection_view_model.dart';
 import 'package:vinyl_social_network/frontend/components/collection_list_item.dart';
+import 'package:vinyl_social_network/frontend/components/custom_circular_progress_indicator.dart';
 
 class CollectionListView extends StatefulWidget {
   const CollectionListView({super.key});
@@ -33,7 +34,7 @@ class _CollectionListViewState extends State<CollectionListView> {
         context.watch<CollectionViewModel>();
 
     return collectionViewModel.loading
-        ? const CircularProgressIndicator() // todo: see how this works
+        ? const CustomCircularProgressIndication()
         : Column(
             children: [
               Container(

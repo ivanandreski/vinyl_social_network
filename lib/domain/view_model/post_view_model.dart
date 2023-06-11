@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vinyl_social_network/api/post_service.dart';
-import 'package:vinyl_social_network/api/stylus_service.dart';
 import 'package:vinyl_social_network/domain/models/post.dart';
-import 'package:vinyl_social_network/domain/models/stylus.dart';
 import 'package:vinyl_social_network/service/account_service.dart';
 
 class PostViewModel extends ChangeNotifier {
@@ -47,7 +45,6 @@ class PostViewModel extends ChangeNotifier {
     // if not available fech from cache isar and display message that yu can view them but edits and ads ill not be saved
     final token = await _accountService.getToken();
 
-    setLoading(true);
     setPosts(await _postService.getPosts(token: token));
     setLoading(false);
   }

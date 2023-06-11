@@ -25,7 +25,7 @@ class PersonCard extends StatelessWidget {
                         children: [
                           const Expanded(
                             flex: 1,
-                            child: Icon(Icons.music_note),
+                            child: Icon(Icons.person),
                           ),
                           Expanded(
                             flex: 4,

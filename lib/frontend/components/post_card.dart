@@ -87,7 +87,7 @@ class PostCard extends StatelessWidget {
                   alignment: Alignment.center,
                   child: TextButton(
                     onPressed: () {
-                      Navigator.pushReplacementNamed(context, UserDetailsView.route, arguments: post.user.id);
+                      Navigator.pushNamed(context, UserDetailsView.route, arguments: post.user.id);
                     },
                     child: Text(post.user.fullName,
                         style: TextStyle(fontSize: 12)),

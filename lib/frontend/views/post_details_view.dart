@@ -24,7 +24,7 @@ class _PostDetailsViewState extends State<PostDetailsView> {
   Widget _buildCommentTree(List<Comment> comments) {
     return ListView.builder(
       shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       itemCount: comments.length,
       itemBuilder: (context, index) {
         final comment = comments[index];
@@ -47,9 +47,9 @@ class _PostDetailsViewState extends State<PostDetailsView> {
         child: Card(
           color: Colors.white,
           elevation: 2.0,
-          margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+          margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
           child: Padding(
-            padding: EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -59,7 +59,9 @@ class _PostDetailsViewState extends State<PostDetailsView> {
                         flex: 1,
                         child: TextButton(
                           onPressed: () {
-                            Navigator.pushReplacementNamed(context, UserDetailsView.route, arguments: comment.user.id);
+                            Navigator.pushNamed(
+                                context, UserDetailsView.route,
+                                arguments: comment.user.id);
                           },
                           child: Text(
                             comment.user.fullName,
@@ -83,10 +85,13 @@ class _PostDetailsViewState extends State<PostDetailsView> {
                 const Divider(),
                 Row(
                   children: [
-                    Text(
-                      comment.body,
-                      style: TextStyle(fontSize: 16.0),
-                    ),
+                    Flexible(
+                      child: Text(
+                        comment.body,
+                        softWrap: true,
+                        style: TextStyle(fontSize: 16.0),
+                      ),
+                    )
                   ],
                 ),
                 SizedBox(height: 8.0),
@@ -148,7 +153,7 @@ class _PostDetailsViewState extends State<PostDetailsView> {
                       alignment: Alignment.center,
                       child: ElevatedButton(
                         onPressed: () {
-                          Navigator.pushReplacementNamed(
+                          Navigator.pushNamed(
                               context, AlbumDetailsView.route,
                               arguments: post.album.discogsId);
                         },
@@ -203,7 +208,9 @@ class _PostDetailsViewState extends State<PostDetailsView> {
                               alignment: Alignment.center,
                               child: TextButton(
                                 onPressed: () {
-                                  Navigator.pushReplacementNamed(context, UserDetailsView.route, arguments: post.user.id);
+                                  Navigator.pushNamed(
+                                      context, UserDetailsView.route,
+                                      arguments: post.user.id);
                                 },
                                 child: Text(post.user.fullName,
                                     style: const TextStyle(fontSize: 12)),

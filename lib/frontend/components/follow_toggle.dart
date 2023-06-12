@@ -36,18 +36,16 @@ class _FollowToggleState extends State<FollowToggle> {
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-        onPressed: _handleFollowPress,
-        child: SizedBox(
-          width: 70,
-          child: Row(children: [
-            Center(
-                child: Text(
-              _isFollow ? "Unfollow" : "Follow",
-              textAlign: TextAlign.center,
-              style: const TextStyle(color: Colors.grey, fontSize: 14),
-            ))
-          ]),
-        ));
+    return ElevatedButton(
+      onPressed: _handleFollowPress,
+      child: Align(
+          alignment: Alignment.center,
+          child: Container(
+              child: Text(
+            _isFollow ? "Unfollow" : "Follow",
+            // textAlign: TextAlign.center,
+            style: const TextStyle(color: Colors.grey, fontSize: 18),
+          ))),
+    );
   }
 }

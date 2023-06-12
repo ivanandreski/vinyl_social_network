@@ -42,16 +42,56 @@ class _UserDetailsViewState extends State<UserDetailsView> {
   Widget build(BuildContext context) {
     return Scaffold(
         drawer: const NavDrawer(),
-        appBar: AppBar(title: Text("User Profile")),
+        appBar: AppBar(title: const Text("User Profile")),
         body: SingleChildScrollView(
             // todo: add checks for friends only
             child: (_loading == true || _user == null)
                 ? const CustomCircularProgressIndication()
                 : (_user!.visibility == UserProfileVisibilityEnum.private
-                    ? Text("This profile is private!")
-                    : Container(
+                    ? const Text("This profile is private!")
+                    : Center(
                         child: Column(
-                          children: [Text(_user!.fullName), Text(_user!.email), FollowToggle(userId: _user!.id, isFollow: _user!.isFollow)],
+                          children: [
+                            Text(
+                              _user!.fullName,
+                              style: const TextStyle(
+                                  fontSize: 32, fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              _user!.email,
+                              style: const TextStyle(fontSize: 26),
+                            ),
+                            FollowToggle(
+                                userId: _user!.id, isFollow: _user!.isFollow),
+                            const SizedBox(height: 10,),
+                            Row(
+                              children: [
+                                Expanded(
+                                  flex: 4,
+                                  child: Column(
+                                    children: <Widget>[
+                                      Text("${_user!.followers}", style: const TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.bold)),
+                                      const Text("Followers", style: TextStyle(
+                                          fontSize: 16, fontWeight: FontWeight.bold))
+                                    ],
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 4,
+                                  child: Column(
+                                    children: <Widget>[
+                                      Text("${_user!.following}", style: const TextStyle(
+                                          fontSize: 16, fontWeight: FontWeight.bold)),
+                                      const Text("Following", style: TextStyle(
+                                          fontSize: 16, fontWeight: FontWeight.bold))
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                            const SizedBox(height: 10,),
+                          ],
                         ),
                       ))));
   }

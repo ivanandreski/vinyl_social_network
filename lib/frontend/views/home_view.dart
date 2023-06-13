@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vinyl_social_network/frontend/components/bottom_nav_bar.dart';
 import 'package:vinyl_social_network/frontend/components/nav_drawer.dart';
+import 'package:vinyl_social_network/frontend/views/chats_view.dart';
 import 'package:vinyl_social_network/frontend/views/collection_view.dart';
 import 'package:vinyl_social_network/frontend/views/posts_view.dart';
 import 'package:vinyl_social_network/frontend/views/profile_view.dart';
@@ -40,7 +41,7 @@ class _HomeViewState extends State<HomeView> {
         ),
         Container(
           alignment: Alignment.center,
-          child: StylusView(),
+          child: ChatsView(),
         ),
         Container(
           alignment: Alignment.center,

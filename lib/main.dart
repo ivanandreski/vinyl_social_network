@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:vinyl_social_network/domain/view_model/chats_view_model.dart';
 import 'package:vinyl_social_network/domain/view_model/collection_view_model.dart';
 import 'package:vinyl_social_network/domain/view_model/post_view_model.dart';
 import 'package:vinyl_social_network/domain/view_model/profile_view_model.dart';
 import 'package:vinyl_social_network/domain/view_model/stylus_view_model.dart';
 import 'package:vinyl_social_network/frontend/views/album_details_view.dart';
+import 'package:vinyl_social_network/frontend/views/chat_view.dart';
 import 'package:vinyl_social_network/frontend/views/home_view.dart';
 import 'package:vinyl_social_network/frontend/views/login_view.dart';
 import 'package:vinyl_social_network/frontend/views/people_view.dart';
@@ -29,6 +31,7 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (_) => ProfileViewModel()),
           ChangeNotifierProvider(create: (_) => StylusViewModel()),
           ChangeNotifierProvider(create: (_) => PostViewModel()),
+          ChangeNotifierProvider(create: (_) => ChatsViewModel()),
         ],
         child: MaterialApp(
             title: 'Vinyl Social Network',
@@ -45,6 +48,7 @@ class MyApp extends StatelessWidget {
               PostDetailsView.route: (ctx) => const PostDetailsView(),
               UserDetailsView.route: (ctx) => const UserDetailsView(),
               PeopleView.route: (ctx) => const PeopleView(),
+              ChatView.route: (ctx) => const ChatView(),
             }));
   }
 }

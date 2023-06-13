@@ -19,3 +19,7 @@ String snakeCaseToSentenceCase(String value) {
 String dateTimeToDateString(DateTime date) {
   return "${date.day.toString().padLeft(2, '0')}-${date.month.toString()}-${date.year.toString().padLeft(2, '0')}";
 }
+
+String dateTimeToDateTimeString(DateTime date) {
+  return "${date.day.toString().padLeft(2, '0')}-${date.month.toString()}-${date.year.toString().padLeft(2, '0')} ${date.hour.toString().padLeft(2, '0')}:${date.minute.toString().padLeft(2, '0')}";
+}

@@ -5,6 +5,7 @@ import 'package:vinyl_social_network/domain/view_model/profile_view_model.dart';
 import 'package:vinyl_social_network/frontend/components/custom_circular_progress_indicator.dart';
 import 'package:vinyl_social_network/frontend/components/nav_drawer.dart';
 import 'package:vinyl_social_network/frontend/components/post_card.dart';
+import 'package:vinyl_social_network/frontend/views/people_view.dart';
 
 class PostsView extends StatefulWidget {
   static const title = "Posts";
@@ -22,7 +23,6 @@ class _PostsViewState extends State<PostsView> {
     PostViewModel postViewModel = context.watch<PostViewModel>();
 
     return Scaffold(
-        drawer: const NavDrawer(),
         appBar: AppBar(
           title: const Text(PostsView.title),
         ),

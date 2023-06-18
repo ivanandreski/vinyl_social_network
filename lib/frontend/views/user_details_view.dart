@@ -41,7 +41,6 @@ class _UserDetailsViewState extends State<UserDetailsView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: const NavDrawer(),
         appBar: AppBar(title: const Text("User Profile")),
         body: SingleChildScrollView(
             // todo: add checks for friends only

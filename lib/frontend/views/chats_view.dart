@@ -4,6 +4,7 @@ import 'package:vinyl_social_network/domain/view_model/chats_view_model.dart';
 import 'package:vinyl_social_network/frontend/components/custom_circular_progress_indicator.dart';
 import 'package:vinyl_social_network/frontend/components/nav_drawer.dart';
 import 'package:vinyl_social_network/frontend/views/chat_view.dart';
+import 'package:vinyl_social_network/frontend/views/people_view.dart';
 
 class ChatsView extends StatefulWidget {
   const ChatsView({super.key});
@@ -18,8 +19,13 @@ class _ChatsViewState extends State<ChatsView> {
     final chatsViewModel = context.watch<ChatsViewModel>();
 
     return Scaffold(
-        drawer: const NavDrawer(),
-        appBar: AppBar(title: const Text("Styluses")),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.pushNamed(context, PeopleView.route);
+          },
+          child: const Icon(Icons.person),
+        ),
+        appBar: AppBar(title: const Text("Chat")),
         body: chatsViewModel.loading
             ? const CustomCircularProgressIndication()
             : RefreshIndicator(

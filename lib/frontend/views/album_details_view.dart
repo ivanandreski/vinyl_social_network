@@ -6,6 +6,7 @@ import 'package:vinyl_social_network/domain/models/album.dart';
 import 'package:vinyl_social_network/frontend/components/nav_drawer.dart';
 import 'package:vinyl_social_network/frontend/dialogs/create_play_session_dialog.dart';
 import 'package:vinyl_social_network/frontend/dialogs/create_post_dialog.dart';
+import 'package:vinyl_social_network/frontend/views/people_view.dart';
 import 'package:vinyl_social_network/utils/constants/urls.dart';
 
 class AlbumDetailsView extends StatefulWidget {
@@ -51,7 +52,6 @@ class _AlbumDetailsViewState extends State<AlbumDetailsView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: const NavDrawer(),
         appBar: AppBar(title: const Text("Album Details")),
         body: _album == null
             ? Text("Loading")

@@ -28,7 +28,6 @@ class _PeopleViewState extends State<PeopleView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: const NavDrawer(),
         appBar: AppBar(title: const Text("Search People")),
         body: Column(
           children: [

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vinyl_social_network/api/post_service.dart';
+import 'package:vinyl_social_network/data_provider/posts_data_provider.dart';
 import 'package:vinyl_social_network/domain/models/post.dart';
 import 'package:vinyl_social_network/service/account_service.dart';
 
@@ -41,11 +42,8 @@ class PostViewModel extends ChangeNotifier {
   }
 
   getPosts() async {
-    // todo: check for internet connection
-    // if not available fech from cache isar and display message that yu can view them but edits and ads ill not be saved
-    final token = await _accountService.getToken();
-
-    setPosts(await _postService.getPosts(token: token));
+    final posts = await PostsDataProvider.instance.getPosts();
+    setPosts(posts);
     setLoading(false);
   }
 

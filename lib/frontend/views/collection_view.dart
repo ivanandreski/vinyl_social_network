@@ -6,6 +6,7 @@ import 'package:vinyl_social_network/frontend/components/collection_list.dart';
 import 'package:vinyl_social_network/frontend/components/nav_drawer.dart';
 import 'package:vinyl_social_network/frontend/components/setup_discogs.dart';
 import 'package:vinyl_social_network/frontend/dialogs/collection_shake_dialog.dart';
+import 'package:vinyl_social_network/frontend/views/people_view.dart';
 
 class CollectionView extends StatefulWidget {
   static const title = "Collection";
@@ -38,7 +39,6 @@ class _CollectionViewState extends State<CollectionView> {
     context.watch<ProfileViewModel>();
 
     return Scaffold(
-        drawer: const NavDrawer(),
         appBar: AppBar(
           title: const Text(CollectionView.title),
         ),

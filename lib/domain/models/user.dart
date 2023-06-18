@@ -1,4 +1,3 @@
-
 class User {
   late final int id;
   late String firstName;
@@ -20,7 +19,6 @@ class User {
       required this.visibility,
       this.isFollow = false});
 
-
   User.fromResponse(Map<String, dynamic> userResponse) {
     id = userResponse['id'];
     email = userResponse['email'];
@@ -29,11 +27,20 @@ class User {
     createdAt = DateTime.parse(userResponse['created_at']);
     visibility = userResponse['visibility'];
     isFollow = userResponse['is_follow'] ?? false;
-    if(userResponse['following'] != null) {
+    if (userResponse['following'] != null) {
       following = userResponse['following'];
       followers = userResponse['followers'];
     }
   }
 
   String get fullName => "$firstName $lastName";
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "firstName": firstName,
+        "lastName": lastName,
+        "email": email,
+        "createdAt": createdAt.toString(),
+        "visibility": visibility,
+      };
 }

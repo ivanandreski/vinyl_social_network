@@ -6,6 +6,7 @@ import 'package:vinyl_social_network/domain/form_data/register_form_data.dart';
 import 'package:vinyl_social_network/domain/view_model/profile_view_model.dart';
 import 'package:vinyl_social_network/frontend/components/nav_drawer.dart';
 import 'package:vinyl_social_network/frontend/views/login_view.dart';
+import 'package:vinyl_social_network/frontend/views/people_view.dart';
 
 class RegisterView extends StatefulWidget {
   static const title = "Register";
@@ -43,7 +44,6 @@ class _RegisterViewState extends State<RegisterView> {
     final profileViewModel = context.watch<ProfileViewModel>();
 
     return Scaffold(
-      drawer: const NavDrawer(),
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text("Register Page"),

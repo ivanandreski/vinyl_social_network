@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:vinyl_social_network/domain/models/comment.dart';
 import 'package:vinyl_social_network/domain/models/post.dart';
+import 'package:vinyl_social_network/service/account_service.dart';
 import 'package:vinyl_social_network/utils/constants/general.dart';
 import 'package:vinyl_social_network/utils/factory/post_factory.dart';
 
@@ -13,7 +14,10 @@ class PostService {
 
   static PostService get instance => _instance;
 
-  Future<List<Post>> getPosts({String? token}) async {
+  Future<List<Post>> getPosts() async {
+    final token = await AccountService.instance.getToken();
+    if (token == null) [];
+
     final url = Uri.parse('${Constants.apiUrl}/api/post?page=1');
     final response = await http.get(url, headers: {
       "Accept": "application/json",

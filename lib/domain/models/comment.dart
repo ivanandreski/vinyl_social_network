@@ -38,4 +38,12 @@ class Comment {
 
     return count;
   }
+
+  Map<String, dynamic> toJson() => {
+    'id': id,
+    'body': body,
+    'createdAt': createdAt.toString(),
+    'replies': [],
+    'user': user.toJson(),
+  };
 }

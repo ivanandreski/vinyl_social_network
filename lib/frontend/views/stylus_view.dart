@@ -28,7 +28,6 @@ class _StylusViewState extends State<StylusView> {
           },
           child: const Icon(Icons.add),
         ),
-        drawer: const NavDrawer(),
         appBar: AppBar(title: const Text("Styluses")),
         body: Container(
             padding: const EdgeInsets.only(left: 20, right: 20),

@@ -22,4 +22,13 @@ class Message {
     createdAt = DateTime.parse(response['created_at']);
     read = response['read'];
   }
+
+  Map<String, dynamic> toJson() => {
+    'id': id,
+    'body': body,
+    'senderId': senderId,
+    'receiverId': receiverId,
+    'createdAt': createdAt.toString(),
+    'read': read,
+  };
 }

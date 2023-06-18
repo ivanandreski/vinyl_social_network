@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vinyl_social_network/api/chat_service.dart';
+import 'package:vinyl_social_network/data_provider/chat_data_provider.dart';
 import 'package:vinyl_social_network/domain/models/message.dart';
 
 class ChatsViewModel extends ChangeNotifier {
@@ -16,7 +17,7 @@ class ChatsViewModel extends ChangeNotifier {
   }
 
   fetchChats() async {
-    _chats = await _chatService.getChats();
+    _chats = await ChatDataProvider.instance.getChat();
     setLoading(false);
   }
 

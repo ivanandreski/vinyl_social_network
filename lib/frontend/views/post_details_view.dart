@@ -8,6 +8,7 @@ import 'package:vinyl_social_network/frontend/components/like_toggle.dart';
 import 'package:vinyl_social_network/frontend/components/nav_drawer.dart';
 import 'package:vinyl_social_network/frontend/dialogs/create_comment_dialog.dart';
 import 'package:vinyl_social_network/frontend/views/album_details_view.dart';
+import 'package:vinyl_social_network/frontend/views/people_view.dart';
 import 'package:vinyl_social_network/frontend/views/user_details_view.dart';
 import 'package:vinyl_social_network/utils/util_functions.dart';
 
@@ -125,7 +126,6 @@ class _PostDetailsViewState extends State<PostDetailsView> {
     final post = postViewModel.getPostByPostId(postId);
 
     return Scaffold(
-        drawer: const NavDrawer(),
         appBar: AppBar(),
         body: SingleChildScrollView(
             child: SizedBox(

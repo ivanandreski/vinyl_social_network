@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 void showSnackBar(BuildContext context, response) {
   final snackBar = SnackBar(
@@ -23,3 +24,16 @@ String dateTimeToDateString(DateTime date) {
 String dateTimeToDateTimeString(DateTime date) {
   return "${date.day.toString().padLeft(2, '0')}-${date.month.toString()}-${date.year.toString().padLeft(2, '0')} ${date.hour.toString().padLeft(2, '0')}:${date.minute.toString().padLeft(2, '0')}";
 }
+
+Future<bool> isInternetConnectionAvailable() async {
+  try {
+    final url = Uri.parse('http://www.google.com');
+    final response = await http.get(url);
+
+    return response.statusCode == 200;
+  } on Exception {
+    return false;
+  }
+}
+
+

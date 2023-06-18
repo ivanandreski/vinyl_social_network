@@ -37,4 +37,15 @@ class Post {
 
     return count;
   }
+
+  Map<String, dynamic> toJson() => {
+    'postId': postId,
+    'title': title,
+    'likes': likes,
+    'youLiked': youLiked,
+    'postedOn': postedOn.toString(),
+    'comments': [],
+    'user': user.toJson(),
+    'album': album.toJson()
+  };
 }

@@ -48,7 +48,7 @@ class ChatService {
       final data = json.decode(response.body);
 
       Map<String, List<Message>> chats = {};
-      data.forEach((key, value) => {
+      data?.forEach((key, value) => {
         chats[key] = value.map<Message>((r) => Message.fromResponse(r)).toList()
       });
 

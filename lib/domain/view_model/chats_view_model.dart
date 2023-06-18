@@ -17,7 +17,6 @@ class ChatsViewModel extends ChangeNotifier {
 
   fetchChats() async {
     _chats = await _chatService.getChats();
-    notifyListeners();
     setLoading(false);
   }
 

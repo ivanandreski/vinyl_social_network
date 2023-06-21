@@ -12,9 +12,9 @@ class ChatService {
 
   static ChatService get instance => _instance;
 
-  Future<Message?> sendMessage({required String message, required int receiverId}) async {
-    final url =
-        Uri.parse('${Constants.apiUrl}/api/chat/send/$receiverId');
+  Future<Message?> sendMessage(
+      {required String message, required int receiverId}) async {
+    final url = Uri.parse('${Constants.apiUrl}/api/chat/send/$receiverId');
     final token = await AccountService.instance.getToken();
     if (token == null) {
       return null;
@@ -26,7 +26,7 @@ class ChatService {
           'Authorization': 'Bearer $token',
         },
         body: json.encode({"body": message}));
-    if(response.statusCode == 201) {
+    if (response.statusCode == 201) {
       return Message.fromResponse(json.decode(response.body));
     }
 
@@ -34,8 +34,7 @@ class ChatService {
   }
 
   Future<Map<String, List<Message>>> getChats() async {
-    final url = Uri.parse(
-        '${Constants.apiUrl}/api/chat');
+    final url = Uri.parse('${Constants.apiUrl}/api/chat');
     final token = await AccountService.instance.getToken();
     if (token == null) {
       return {};
@@ -44,17 +43,41 @@ class ChatService {
       "Accept": "application/json",
       'Authorization': 'Bearer $token',
     });
-    if(response.statusCode == 200) {
+    if (response.statusCode == 200) {
       final data = json.decode(response.body);
 
       Map<String, List<Message>> chats = {};
       data?.forEach((key, value) => {
-        chats[key] = value.map<Message>((r) => Message.fromResponse(r)).toList()
-      });
+            chats[key] =
+                value.map<Message>((r) => Message.fromResponse(r)).toList()
+          });
 
       return chats;
     }
 
     return {};
+  }
+
+  Future<List<Message>> getUnreadMessages() async {
+    final url = Uri.parse('${Constants.apiUrl}/api/chat/messages');
+    final token = await AccountService.instance.getToken();
+    if (token == null) {
+      return [];
+    }
+    final response = await http.get(url, headers: {
+      "Accept": "application/json",
+      'Authorization': 'Bearer $token',
+    });
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body)['data'];
+      if (data.isEmpty) return [];
+
+      List<Message> chats = [];
+      data?.forEach((key, value) => {chats.add(Message.fromResponse(value))});
+
+      return chats;
+    }
+
+    return [];
   }
 }

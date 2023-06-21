@@ -5,6 +5,7 @@ import 'package:vinyl_social_network/domain/models/album.dart';
 import 'package:vinyl_social_network/domain/models/user.dart';
 import 'package:vinyl_social_network/domain/response/login_response.dart';
 import 'package:vinyl_social_network/service/account_service.dart';
+import 'package:vinyl_social_network/utils/util_functions.dart';
 
 class ProfileViewModel extends ChangeNotifier {
   final _userService = UserService.instance;
@@ -16,15 +17,18 @@ class ProfileViewModel extends ChangeNotifier {
   User? _user;
 
   bool get loading => _loading;
+
   String? get token => _token;
+
   String? get discogsUsername => _discogsUsername;
+
   User? get user => _user;
 
   ProfileViewModel() {
     getToken();
     getDiscogsUsername();
   }
-// todo: tidy functions
+
   setLoading(bool loading) async {
     _loading = loading;
     notifyListeners();
@@ -48,7 +52,10 @@ class ProfileViewModel extends ChangeNotifier {
   getToken() async {
     String? token = await _accountService.getToken();
     setToken(token);
-    await getUser();
+
+    if (await isInternetConnectionAvailable()) {
+      await getUser();
+    }
   }
 
   getDiscogsUsername() async {
@@ -58,7 +65,7 @@ class ProfileViewModel extends ChangeNotifier {
 
   Future<LoginResponse> doLogin(LoginFormData loginFormData) async {
     final response = await _userService.doLogin(loginFormData);
-    if(response.success) {
+    if (response.success) {
       await _accountService.setToken(response.token);
       setToken(response.token);
       getUser();
@@ -71,7 +78,7 @@ class ProfileViewModel extends ChangeNotifier {
 
   Future<bool> doLogout() async {
     final response = await _userService.doLogout(_token);
-    if(response) {
+    if (response) {
       await _accountService.removeToken();
       setToken(null);
     }
@@ -96,7 +103,7 @@ class ProfileViewModel extends ChangeNotifier {
   }
 
   getUser() async {
-    if(token != null) {
+    if (token != null) {
       final response = await _userService.getMyProfile(token!);
 
       final user = User.fromResponse(response);
@@ -105,8 +112,9 @@ class ProfileViewModel extends ChangeNotifier {
   }
 
   updateProfileVisibility(String? visibility) async {
-    if(visibility != null) {
-      final response = await _userService.updateProfileVisibility(visibility, _token!);
+    if (visibility != null) {
+      final response =
+          await _userService.updateProfileVisibility(visibility, _token!);
       setUser(User.fromResponse(response));
     }
   }

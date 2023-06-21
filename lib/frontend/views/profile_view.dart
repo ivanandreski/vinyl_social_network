@@ -24,7 +24,7 @@ class ProfileView extends StatelessWidget {
     ProfileViewModel profileViewModel = context.watch<ProfileViewModel>();
     CollectionViewModel collectionViewModel =
         context.watch<CollectionViewModel>();
-// todo: add api call for get user when i pull down from the top (refresh gesture)
+
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
@@ -103,11 +103,11 @@ class ProfileView extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        "${profileViewModel.user!.firstName} ${profileViewModel.user!.lastName}",
+                                        "${profileViewModel.user?.firstName} ${profileViewModel.user?.lastName}",
                                         style: const TextStyle(fontSize: 20),
                                       ),
                                       Text(
-                                        profileViewModel.user!.email,
+                                        profileViewModel.user?.email ?? "",
                                         style: const TextStyle(fontSize: 16),
                                       )
                                     ],
@@ -125,7 +125,11 @@ class ProfileView extends StatelessWidget {
                                         style: TextStyle(fontSize: 20),
                                       ),
                                       Text(
-                                        dateTimeToDateString(profileViewModel.user!.createdAt),
+                                        profileViewModel.user?.createdAt != null
+                                            ? dateTimeToDateString(
+                                                profileViewModel
+                                                    .user!.createdAt)
+                                            : "",
                                         style: const TextStyle(fontSize: 16),
                                       )
                                     ],
@@ -172,7 +176,7 @@ class ProfileView extends StatelessWidget {
               ProfileDialogButton(
                   dialogWidget: const ProfileVisibilityDialog(),
                   text:
-                      'Profile visibility: ${profileViewModel.user!.visibility}',
+                      'Profile visibility: ${profileViewModel.user?.visibility}',
                   icon: const Icon(Icons.person)),
               ProfileDialogButton(
                   dialogWidget: const ProfileVisibilityDialog(),

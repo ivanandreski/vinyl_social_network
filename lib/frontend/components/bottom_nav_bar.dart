@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vinyl_social_network/utils/util_functions.dart';
 
 class BottomNavBar extends StatelessWidget {
   late final Function changeCurrentPageIndex;
@@ -12,7 +13,15 @@ class BottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return NavigationBar(
-      onDestinationSelected: (int index) {
+      onDestinationSelected: (int index) async {
+        if(!(await isInternetConnectionAvailable()) && index > 1) {
+          if(context.mounted) {
+            noInternetSnackBar(context);
+          }
+
+          return;
+        }
+
         changeCurrentPageIndex(index);
       },
       selectedIndex: getIndex(),

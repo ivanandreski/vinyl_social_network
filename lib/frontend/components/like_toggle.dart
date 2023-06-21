@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vinyl_social_network/domain/view_model/post_view_model.dart';
+import 'package:vinyl_social_network/utils/util_functions.dart';
 
 class LikeToggle extends StatefulWidget {
   late final int postId;
@@ -20,7 +21,15 @@ class _LikeToggleState extends State<LikeToggle> {
 
     return TextButton(
         onPressed: () async {
-          await postViewModel.likePost(widget.postId);
+          if (await isInternetConnectionAvailable()) {
+            if (context.mounted) {
+              await postViewModel.likePost(widget.postId);
+            }
+          } else {
+            if (context.mounted) {
+              noInternetSnackBar(context);
+            }
+          }
         },
         child: SizedBox(
           width: 70,

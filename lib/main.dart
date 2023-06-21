@@ -1,4 +1,6 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:vinyl_social_network/domain/view_model/chats_view_model.dart';
 import 'package:vinyl_social_network/domain/view_model/collection_view_model.dart';
@@ -13,9 +15,24 @@ import 'package:vinyl_social_network/frontend/views/people_view.dart';
 import 'package:vinyl_social_network/frontend/views/post_details_view.dart';
 import 'package:vinyl_social_network/frontend/views/register_view.dart';
 import 'package:vinyl_social_network/frontend/views/user_details_view.dart';
+import 'package:vinyl_social_network/service/background_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Permission.notification.isDenied.then((value) => {
+        if (value) {Permission.notification.request()}
+      });
+
+  AwesomeNotifications().initialize(null, [
+    NotificationChannel(
+        channelKey: "key1",
+        channelName: "Vinyl Social Network Messages",
+        channelDescription: "Vinyl Social Network Messages",
+        playSound: true)
+  ]);
+
+  await initializeService();
 
   runApp(const MyApp());
 }
@@ -36,7 +53,8 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
             title: 'Vinyl Social Network',
             theme: ThemeData(
-              colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF363f93)),
+              colorScheme:
+                  ColorScheme.fromSeed(seedColor: const Color(0xFF363f93)),
               useMaterial3: true,
             ),
             initialRoute: HomeView.route,

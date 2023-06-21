@@ -5,6 +5,7 @@ class Message {
   late int receiverId;
   late DateTime createdAt;
   late bool read;
+  String? fullName;
 
   Message(
       {required this.id,
@@ -12,7 +13,9 @@ class Message {
       required this.senderId,
       required this.receiverId,
       required this.createdAt,
-      required this.read});
+      required this.read,
+      this.fullName
+      });
 
   Message.fromResponse(Map<String, dynamic> response) {
     id = response['id'];
@@ -21,6 +24,9 @@ class Message {
     receiverId = response['receiver_id'];
     createdAt = DateTime.parse(response['created_at']);
     read = response['read'];
+    if(response['sender'] != null) {
+      fullName = response['sender'];
+    }
   }
 
   Map<String, dynamic> toJson() => {

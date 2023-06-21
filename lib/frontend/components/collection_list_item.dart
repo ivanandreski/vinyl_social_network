@@ -1,22 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:vinyl_social_network/domain/models/album.dart';
+import 'package:vinyl_social_network/frontend/components/custom_network_image.dart';
 import 'package:vinyl_social_network/frontend/views/album_details_view.dart';
+import 'package:vinyl_social_network/utils/util_functions.dart';
 
 class CollectionListItem extends StatelessWidget {
   final Album album;
 
   const CollectionListItem({super.key, required this.album});
 
-  // TODO: make this more responsive with percent and flex
-
   @override
   Widget build(BuildContext context) {
     return Container(
         height: 220,
         child: GestureDetector(
-          onTap: () {
-            Navigator.pushNamed(context, AlbumDetailsView.route,
-                arguments: album.discogsId);
+          onTap: () async {
+            if (await isInternetConnectionAvailable()) {
+              if (context.mounted) {
+                Navigator.pushNamed(context, AlbumDetailsView.route,
+                    arguments: album.discogsId);
+              }
+            } else {
+              if (context.mounted) {
+                noInternetSnackBar(context);
+              }
+            }
           },
           child: Stack(
             children: [
@@ -42,20 +50,13 @@ class CollectionListItem extends StatelessWidget {
                   top: 15,
                   left: 8,
                   child: Card(
-                    elevation: 10.0,
-                    shadowColor: Colors.grey.withOpacity(0.5),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15.0)),
-                    child: Container(
-                      height: 150,
-                      width: 150,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.0),
-                          image: DecorationImage(
-                              fit: BoxFit.contain,
-                              image: NetworkImage(album.imageUrl))),
-                    ),
-                  )),
+                      elevation: 10.0,
+                      shadowColor: Colors.grey.withOpacity(0.5),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.0)),
+                      child: CustomNetworkImage(
+                        imageUrl: album.imageUrl,
+                      ))),
               Positioned(
                   top: 45,
                   left: 170,

@@ -36,4 +36,9 @@ Future<bool> isInternetConnectionAvailable() async {
   }
 }
 
-
+void noInternetSnackBar(BuildContext context) {
+  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+    content: Text('There is not internet connection available!'),
+    duration: Duration(seconds: 1),
+  ));
+}

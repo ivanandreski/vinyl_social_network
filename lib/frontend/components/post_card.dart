@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:vinyl_social_network/domain/models/post.dart';
+import 'package:vinyl_social_network/frontend/components/custom_network_image.dart';
 import 'package:vinyl_social_network/frontend/components/like_toggle.dart';
 import 'package:vinyl_social_network/frontend/views/post_details_view.dart';
 import 'package:vinyl_social_network/frontend/views/user_details_view.dart';
+import 'package:vinyl_social_network/utils/util_functions.dart';
 
 class PostCard extends StatelessWidget {
   late final Post post;
@@ -18,21 +20,24 @@ class PostCard extends StatelessWidget {
             style: TextButton.styleFrom(
                 shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10)))),
-            onPressed: () {
-              Navigator.pushNamed(context, PostDetailsView.route,
-                  arguments: post.postId);
+            onPressed: () async {
+              if (await isInternetConnectionAvailable()) {
+                if (context.mounted) {
+                  Navigator.pushNamed(context, PostDetailsView.route,
+                      arguments: post.postId);
+                }
+              } else {
+                if (context.mounted) {
+                  noInternetSnackBar(context);
+                }
+              }
             },
             child: Row(
               children: [
                 Expanded(
                   flex: 3,
-                  child: Container(
-                    height: 100,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.0),
-                        image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: NetworkImage(post.album.imageUrl))),
+                  child: CustomNetworkImage(
+                    imageUrl: post.album.imageUrl,
                   ),
                 ),
                 Expanded(
@@ -72,9 +77,17 @@ class PostCard extends StatelessWidget {
                   height: 35,
                   alignment: Alignment.center,
                   child: TextButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, PostDetailsView.route,
-                            arguments: post.postId);
+                      onPressed: () async {
+                        if (await isInternetConnectionAvailable()) {
+                          if (context.mounted) {
+                            Navigator.pushNamed(context, PostDetailsView.route,
+                                arguments: post.postId);
+                          }
+                        } else {
+                          if (context.mounted) {
+                            noInternetSnackBar(context);
+                          }
+                        }
                       },
                       child: Text('Comments: ${post.numOfComments}',
                           style: TextStyle(fontSize: 12, color: Colors.grey))),
@@ -86,8 +99,17 @@ class PostCard extends StatelessWidget {
                   height: 35,
                   alignment: Alignment.center,
                   child: TextButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, UserDetailsView.route, arguments: post.user.id);
+                    onPressed: () async {
+                      if (await isInternetConnectionAvailable()) {
+                        if (context.mounted) {
+                          Navigator.pushNamed(context, UserDetailsView.route,
+                              arguments: post.user.id);
+                        }
+                      } else {
+                        if (context.mounted) {
+                          noInternetSnackBar(context);
+                        }
+                      }
                     },
                     child: Text(post.user.fullName,
                         style: TextStyle(fontSize: 12)),

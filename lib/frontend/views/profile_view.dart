@@ -173,73 +173,37 @@ class ProfileView extends StatelessWidget {
                     ],
                   )),
               const Divider(height: 1),
-              ProfileDialogButton(
-                  dialogWidget: const ProfileVisibilityDialog(),
-                  text:
-                      'Profile visibility: ${profileViewModel.user?.visibility}',
-                  icon: const Icon(Icons.person)),
-              ProfileDialogButton(
-                  dialogWidget: const ProfileVisibilityDialog(),
-                  text: 'Change User Details',
-                  icon: const Icon(Icons.person)),
-              ProfileDialogButton(
-                  dialogWidget: const ProfileVisibilityDialog(),
-                  text: 'Change Password',
-                  icon: const Icon(Icons.lock)),
-              ProfileDialogButton(
-                  dialogWidget: const ProfileVisibilityDialog(),
-                  text: 'Change Email',
-                  icon: const Icon(Icons.email)),
-              ProfileDialogButton(
-                  dialogWidget: const ProfileVisibilityDialog(),
-                  text: 'Delete My Account',
-                  icon: const Icon(
-                    Icons.delete,
-                    color: Colors.red,
-                  )),
+              if (profileViewModel.user != null)
+                ProfileDialogButton(
+                    dialogWidget: const ProfileVisibilityDialog(),
+                    text:
+                        'Profile visibility: ${profileViewModel.user?.visibility}',
+                    icon: const Icon(Icons.person)),
+              // if (profileViewModel.user != null)
+              //   ProfileDialogButton(
+              //       dialogWidget: const ProfileVisibilityDialog(),
+              //       text: 'Change User Details',
+              //       icon: const Icon(Icons.person)),
+              // if (profileViewModel.user != null)
+              //   ProfileDialogButton(
+              //       dialogWidget: const ProfileVisibilityDialog(),
+              //       text: 'Change Password',
+              //       icon: const Icon(Icons.lock)),
+              // if (profileViewModel.user != null)
+              //   ProfileDialogButton(
+              //       dialogWidget: const ProfileVisibilityDialog(),
+              //       text: 'Change Email',
+              //       icon: const Icon(Icons.email)),
+              // if (profileViewModel.user != null)
+              //   ProfileDialogButton(
+              //       dialogWidget: const ProfileVisibilityDialog(),
+              //       text: 'Delete My Account',
+              //       icon: const Icon(
+              //         Icons.delete,
+              //         color: Colors.red,
+              //       )),
             ],
           ],
         ));
-    // body: Column(
-    //   // todo: design square sections of each setting
-    //   children: [
-    //     if (profileViewModel.discogsUsername != null) ...[
-    //       Text(
-    //           "Current discogs username: ${profileViewModel.discogsUsername}"),
-    //       ElevatedButton(
-    //           onPressed: () async {
-    //             await collectionViewModel.clear();
-    //             await profileViewModel.clearDiscogs();
-    //             if (context.mounted) {
-    //               Navigator.pushReplacementNamed(
-    //                   context, CollectionView.route);
-    //             }
-    //           },
-    //           child: Text("Clear discogs username")),
-    //     ] else ...[
-    //       Text("No discogs username is set, go to the collection page!"),
-    //     ],
-    //     if (profileViewModel.token != null) ...[
-    //       // todo: make api call for getting the profile with token which returns basic info
-    //       Text("Current token: ${profileViewModel.token}"),
-    //       ElevatedButton(
-    //           onPressed: () async {
-    //             final response = await profileViewModel
-    //                 .syncCollection(collectionViewModel.albums);
-    //
-    //             if (context.mounted) {
-    //               showSnackBar(context, response);
-    //             }
-    //           },
-    //           child: Text("Sync Collection")),
-    //       ElevatedButton(
-    //           onPressed: () async {
-    //             final response = await profileViewModel.doLogout();
-    //           },
-    //           child: Text("Logout")),
-    //     ]
-    //   ],
-    // )
-    // );
   }
 }

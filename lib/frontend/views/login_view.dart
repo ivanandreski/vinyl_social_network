@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:vinyl_social_network/api/user_service.dart';
 import 'package:vinyl_social_network/domain/form_data/login_form_data.dart';
+import 'package:vinyl_social_network/domain/view_model/chats_view_model.dart';
 import 'package:vinyl_social_network/domain/view_model/collection_view_model.dart';
 import 'package:vinyl_social_network/domain/view_model/profile_view_model.dart';
 import 'package:vinyl_social_network/frontend/components/nav_drawer.dart';
@@ -24,12 +25,13 @@ class _LoginViewState extends State<LoginView> {
   final loginFormData = LoginFormData();
   String errorMessage = "";
 
-  void _submit(ProfileViewModel profileViewModel, CollectionViewModel collectionViewModel) async {
+  void _submit(ProfileViewModel profileViewModel, CollectionViewModel collectionViewModel, ChatsViewModel chatViewModel) async {
     final loginResponse = await profileViewModel.doLogin(loginFormData);
     if (loginResponse.success && mounted) {
       if(collectionViewModel.albums.isNotEmpty) {
         profileViewModel.syncCollection(collectionViewModel.albums);
       }
+      chatViewModel.fetchChats();
 
       Navigator.of(context).pop();
     } else {
@@ -43,6 +45,7 @@ class _LoginViewState extends State<LoginView> {
   Widget build(BuildContext context) {
     final profileViewModel = context.watch<ProfileViewModel>();
     final collectionViewModel = context.watch<CollectionViewModel>();
+    final chatViewModel = context.watch<ChatsViewModel>();
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -121,7 +124,7 @@ class _LoginViewState extends State<LoginView> {
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                             minimumSize: const Size.fromHeight(48)),
-                        onPressed: () => _submit(profileViewModel, collectionViewModel),
+                        onPressed: () => _submit(profileViewModel, collectionViewModel, chatViewModel),
                         child: const Text("Login")),
                   ),
                 ],

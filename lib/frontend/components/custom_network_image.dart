@@ -20,7 +20,10 @@ class _CustomNetworkImageState extends State<CustomNetworkImage> {
   }
 
   _checkNetwork() async {
-    _show = await isInternetConnectionAvailable();
+    final value = await isInternetConnectionAvailable();
+    setState(() {
+      _show = value;
+    });
   }
 
   @override

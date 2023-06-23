@@ -51,6 +51,7 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (_) => ChatsViewModel()),
         ],
         child: MaterialApp(
+            debugShowCheckedModeBanner: false,
             title: 'Vinyl Social Network',
             theme: ThemeData(
               colorScheme:
